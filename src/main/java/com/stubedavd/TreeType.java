@@ -1,0 +1,38 @@
+package com.stubedavd;
+
+public enum TreeType {
+    EVERGREEN("🌲", "Хвойное дерево"),
+    DECIDUOUS("🌳", "Лиственное дерево"),
+    PALM("🌴", "Пальма"),
+    BAMBOO("🎍", "Бамбук"),
+    CACTUS("🌵", "Кактус"),
+    MAPLE("🍁", "Клен"),
+    CHERRY("🌸", "Сакура"),
+    PINE("🎄", "Сосна");
+
+    private final String emoji;
+    private final String description;
+
+    TreeType(String emoji, String description) {
+        this.emoji = emoji;
+        this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return emoji;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getEmoji() {
+        return emoji;
+    }
+
+    public static TreeType getRandom() {
+        TreeType[] types = values();
+        return types[(int) (Math.random() * types.length)];
+    }
+}
