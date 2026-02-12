@@ -1,8 +1,5 @@
 package com.stubedavd;
 
-/**
- * Grass entity that can be consumed by herbivores
- */
 public class Grass extends Entity {
     private final GrassType type;
 

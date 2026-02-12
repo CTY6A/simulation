@@ -1,8 +1,5 @@
 package com.stubedavd;
 
-/**
- * Represents a position on the 2D world map
- */
 public class Position {
     private final int x;
     private final int y;
