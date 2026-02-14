@@ -5,7 +5,6 @@ public class Simulation {
     private int turnCount;
     private final Renderer renderer;
     private final Action actions;
-    private final int MAX_TURNS = 5; // TODO: infinity loop
 
     public Simulation(int width, int height) {
         this.worldMap = new WorldMap(width, height);
@@ -18,7 +17,7 @@ public class Simulation {
         actions.initActions(worldMap);
 
         try {
-            while (turnCount < MAX_TURNS){
+            while (true){
                 Thread.sleep(1000);
                 nextTurn();
             }
@@ -33,7 +32,7 @@ public class Simulation {
     public void nextTurn() {
         turnCount++;
         System.out.println("\n--- Turn " + turnCount + " ---");
-        actions.turnActions();
+        actions.turnActions(worldMap);
         renderer.render();
     }
 

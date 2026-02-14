@@ -2,23 +2,40 @@ package com.stubedavd;
 
 public class Action {
     public void initActions (WorldMap worldMap) {
+        int rocksCount = (worldMap.getWidth() * worldMap.getHeight()) / 10;
+        //worldMap.generateRandomRocks(rocksCount);
+
         int grassCount = (worldMap.getWidth() * worldMap.getHeight()) / 10;
-        worldMap.generateRandomGrass(grassCount);
+        //worldMap.generateRandomGrass(grassCount);
 
         int treesCount = (worldMap.getWidth() * worldMap.getHeight()) / 10;
-        worldMap.generateRandomTrees(treesCount);
+        //worldMap.generateRandomTrees(treesCount);
 
-        int rocksCount = (worldMap.getWidth() * worldMap.getHeight()) / 10;
-        worldMap.generateRandomRocks(rocksCount);
-
-        int herbivoresCount = (worldMap.getWidth() * worldMap.getHeight()) / 10;
+        int herbivoresCount = (worldMap.getWidth() * worldMap.getHeight()) / 2;
         worldMap.generateRandomHerbivores(herbivoresCount);
 
-        int predatorsCount = (worldMap.getWidth() * worldMap.getHeight()) / 10;
+        int predatorsCount = (worldMap.getWidth() * worldMap.getHeight()) / 2;
         worldMap.generateRandomPredators(predatorsCount);
     }
 
-    public void turnActions () {
-        
+    public void turnActions (WorldMap worldMap) {
+        WorldMap worldMapCopy = new WorldMap(worldMap.getWidth(), worldMap.getHeight());
+        worldMapCopy.getEntities().putAll(worldMap.getEntities());
+
+        for (Entity entity : worldMap.getEntities().values()) {
+            if (entity instanceof Creature) {
+                Creature creature = (Creature) entity;
+                creature.makeMove(worldMapCopy);
+                creature.takeDamage(25);
+                if (creature.getHealthPoints() <= 0) {
+                    Position position = worldMapCopy.getPositionByEntity(creature);
+                    worldMapCopy.removeEntity(position);
+                    worldMapCopy.placeEntity(position, new Rock(position, RockType.GRAVE));
+                }
+            }
+        }
+
+        worldMap.getEntities().clear();
+        worldMap.getEntities().putAll(worldMapCopy.getEntities());
     }
 }

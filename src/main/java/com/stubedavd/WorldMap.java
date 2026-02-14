@@ -23,20 +23,48 @@ public class WorldMap {
         }
     }
 
+    public void removeEntity(Position position) {
+        entities.remove(position);
+    }
+
+    public void moveEntity(Entity entity, Position toPosition) {
+        removeEntity(entity.getPosition());
+        entity.setPosition(toPosition);
+        placeEntity(toPosition, entity);
+    }
+
     public Entity getEntityAt(Position position) {
         return entities.get(position);
     }
 
+    public Position getPositionByEntity(Entity entity) {
+        for (Map.Entry<Position, Entity> entry : entities.entrySet()) {
+            if (entry.getValue() == entity) {
+                return entry.getKey();
+            }
+        }
+        return null;
+    }
+
     public boolean isValidPosition(Position position) {
-        return position.getX() >= 0 && position.getX() < width &&
+        return position != null && position.getX() >= 0 && position.getX() < width &&
                 position.getY() >= 0 && position.getY() < height;
+    }
+
+    public void generateRandomRocks(int rocksCount) {
+        for (int i = 0; i < rocksCount; i++) {
+            Position randomPos = getRandomEmptyPosition();
+            if (randomPos != null) {
+                placeEntity(randomPos, new Rock(randomPos));
+            }
+        }
     }
 
     public void generateRandomGrass(int grassCount) {
         for (int i = 0; i < grassCount; i++) {
             Position randomPos = getRandomEmptyPosition();
             if (randomPos != null) {
-                placeEntity(randomPos, new Grass());
+                placeEntity(randomPos, new Grass(randomPos));
             }
         }
     }
@@ -45,16 +73,7 @@ public class WorldMap {
         for (int i = 0; i < treesCount; i++) {
             Position randomPos = getRandomEmptyPosition();
             if (randomPos != null) {
-                placeEntity(randomPos, new Tree());
-            }
-        }
-    }
-
-    public void generateRandomRocks(int rocksCount) {
-        for (int i = 0; i < rocksCount; i++) {
-            Position randomPos = getRandomEmptyPosition();
-            if (randomPos != null) {
-                placeEntity(randomPos, new Rock());
+                placeEntity(randomPos, new Tree(randomPos));
             }
         }
     }
@@ -63,7 +82,7 @@ public class WorldMap {
         for (int i = 0; i < herbivoresCount; i++) {
             Position randomPos = getRandomEmptyPosition();
             if (randomPos != null) {
-                placeEntity(randomPos, new Herbivore());
+                placeEntity(randomPos, new Herbivore(randomPos));
             }
         }
     }
@@ -72,12 +91,12 @@ public class WorldMap {
         for (int i = 0; i < predatorsCount; i++) {
             Position randomPos = getRandomEmptyPosition();
             if (randomPos != null) {
-                placeEntity(randomPos, new Predator());
+                placeEntity(randomPos, new Predator(randomPos));
             }
         }
     }
 
-    private Position getRandomEmptyPosition() {
+    public Position getRandomEmptyPosition() {
         for (int attempts = 0; attempts < width * height * 2; attempts++) {
             int x = random.nextInt(width);
             int y = random.nextInt(height);
