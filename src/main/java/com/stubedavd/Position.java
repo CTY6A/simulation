@@ -29,4 +29,8 @@ public class Position {
     public String toString() {
         return "(" + x + "," + y + ")";
     }
+
+    public int distanceTo(Position position) {
+        return (Math.abs(x - position.getX()) + Math.abs(y - position.getY())) * 10;
+    }
 }

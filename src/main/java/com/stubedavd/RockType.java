@@ -2,7 +2,7 @@ package com.stubedavd;
 
 public enum RockType {
     MOUNTAIN("\u26F0\uFE0F", "Гора"),
-    STONEHENGE("\uD83D\uDDFF", "Стоунхендж"),
+    //STONEHENGE("\uD83D\uDDFF", "Стоунхендж"),
     ROCK("\uD83D\uDDFB", "Скала"),
     GRAVE("⚰\uFE0F", "Могильный камень");
 

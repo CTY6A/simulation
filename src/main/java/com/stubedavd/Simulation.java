@@ -16,17 +16,20 @@ public class Simulation {
     public void startSimulation() {
         actions.initActions(worldMap);
 
-        try {
-            while (true){
-                Thread.sleep(1000);
+        System.out.println("\n--- Turn " + turnCount + " ---");
+        renderer.render();
+
+        //try {
+            while (turnCount < 5){
+                //Thread.sleep(1000);
                 nextTurn();
             }
-        } catch (InterruptedException e) {
+        /*} catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             System.out.println("Simulation interrupted");
-        }
+        }*/
 
-        System.out.println("\nSimulation completed!");
+        //System.out.println("\nSimulation completed!");
     }
 
     public void nextTurn() {

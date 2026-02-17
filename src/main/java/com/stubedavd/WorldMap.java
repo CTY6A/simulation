@@ -28,9 +28,11 @@ public class WorldMap {
     }
 
     public void moveEntity(Entity entity, Position toPosition) {
-        removeEntity(entity.getPosition());
-        entity.setPosition(toPosition);
-        placeEntity(toPosition, entity);
+        if (entity != null && toPosition != null) {
+            removeEntity(entity.getPosition());
+            entity.setPosition(toPosition);
+            placeEntity(toPosition, entity);
+        }
     }
 
     public Entity getEntityAt(Position position) {
@@ -49,6 +51,14 @@ public class WorldMap {
     public boolean isValidPosition(Position position) {
         return position != null && position.getX() >= 0 && position.getX() < width &&
                 position.getY() >= 0 && position.getY() < height;
+    }
+
+    public boolean isEmptyPosition(Position position) {
+        return entities.get(position) == null;
+    }
+
+    public boolean isEntityExists(Entity entity) {
+        return entities.containsValue(entity);
     }
 
     public void generateRandomRocks(int rocksCount) {

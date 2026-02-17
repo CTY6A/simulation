@@ -2,6 +2,7 @@ package com.stubedavd;
 
 public class Herbivore extends Creature {
     private final HerbivoreType type;
+    private Astar bfs = null;
 
     public Herbivore(Position position) {
         super(position);
@@ -15,23 +16,29 @@ public class Herbivore extends Creature {
 
     @Override
     public void makeMove(WorldMap worldMap) {
-        Grass grass = null;
-        Position newPosition = worldMap.getRandomEmptyPosition();
+        Position newPosition = null;
 
-        for (Entity entity : worldMap.getEntities().values()) {
-            if (entity instanceof Grass) {
-                grass = (Grass) entity;
-                break;
-            }
+        if (bfs == null) {
+            this.bfs = new Astar(worldMap, this.getPosition(), newPosition);
+            bfs.findPath();
+        }
+        Position closestGrass = bfs.findClosestGrass();
+        System.out.println(closestGrass);
+        System.out.println(bfs.getPath());
+        Position secondPosition = null;
+        if (!bfs.getPath().isEmpty()) {
+            secondPosition = bfs.getPath().get(0);
+            bfs.getPath().remove(0);
+        } else if (bfs.getTargetPosition() != null) {
+            secondPosition = bfs.getTargetPosition();
+            bfs.setTargetPosition(null);
+            this.heal(25);
         }
 
-        if (grass != null) {
-            worldMap.removeEntity(grass.getPosition());
-            this.heal(10);
-            newPosition = grass.getPosition();
+        if (!(worldMap.isEmptyPosition(secondPosition) || worldMap.getEntityAt(secondPosition) instanceof Grass)) {
+            bfs.findPath();
         }
-
-        worldMap.moveEntity(this, newPosition);
+        worldMap.moveEntity(this, secondPosition);
     }
 
     @Override
