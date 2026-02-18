@@ -1,4 +1,8 @@
-package com.stubedavd;
+package com.stubedavd.actions;
+
+import com.stubedavd.WorldMap;
+import com.stubedavd.elements.Creature;
+import com.stubedavd.elements.Entity;
 
 public class Action {
     public void initActions (WorldMap worldMap) {

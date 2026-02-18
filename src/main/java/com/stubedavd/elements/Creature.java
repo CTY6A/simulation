@@ -1,4 +1,7 @@
-package com.stubedavd;
+package com.stubedavd.elements;
+
+import com.stubedavd.Position;
+import com.stubedavd.WorldMap;
 
 public abstract class Creature extends Entity {
     private final int MAX_HEALTH_POINTS = 100;

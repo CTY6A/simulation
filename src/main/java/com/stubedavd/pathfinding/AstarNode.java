@@ -1,4 +1,6 @@
-package com.stubedavd;
+package com.stubedavd.pathfinding;
+
+import com.stubedavd.Position;
 
 import java.util.Objects;
 

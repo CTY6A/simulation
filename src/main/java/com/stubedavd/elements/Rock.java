@@ -1,4 +1,7 @@
-package com.stubedavd;
+package com.stubedavd.elements;
+
+import com.stubedavd.Position;
+import com.stubedavd.elements.types.RockType;
 
 public class Rock extends Entity {
     private final RockType type;

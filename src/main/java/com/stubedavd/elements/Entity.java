@@ -1,4 +1,6 @@
-package com.stubedavd;
+package com.stubedavd.elements;
+
+import com.stubedavd.Position;
 
 public abstract class Entity {
     private Position position;

@@ -1,4 +1,9 @@
-package com.stubedavd;
+package com.stubedavd.pathfinding;
+
+import com.stubedavd.Position;
+import com.stubedavd.WorldMap;
+import com.stubedavd.elements.Entity;
+import com.stubedavd.elements.Grass;
 
 import java.util.*;
 

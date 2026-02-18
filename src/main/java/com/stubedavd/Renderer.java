@@ -1,5 +1,7 @@
 package com.stubedavd;
 
+import com.stubedavd.elements.Entity;
+
 public class Renderer {
     private final WorldMap worldMap;
 

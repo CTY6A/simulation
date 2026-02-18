@@ -1,4 +1,7 @@
-package com.stubedavd;
+package com.stubedavd.elements;
+
+import com.stubedavd.elements.types.GrassType;
+import com.stubedavd.Position;
 
 public class Grass extends Entity {
     private final GrassType type;

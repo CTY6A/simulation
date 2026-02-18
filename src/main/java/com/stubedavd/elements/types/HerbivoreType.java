@@ -1,4 +1,4 @@
-package com.stubedavd;
+package com.stubedavd.elements.types;
 
 public enum HerbivoreType {
     DEER("🦌", "Олень"),

@@ -1,16 +1,23 @@
-package com.stubedavd;
+package com.stubedavd.elements;
+
+import com.stubedavd.Position;
+import com.stubedavd.elements.types.PredatorType;
+import com.stubedavd.WorldMap;
 
 public class Predator extends Creature {
     private final PredatorType type;
+    private final int damage;
 
     public Predator(Position position) {
         super(position);
         this.type = PredatorType.getRandom();
+        this.damage = type.getDamage();
     }
 
     public Predator(Position position, PredatorType type) {
         super(position);
         this.type = type;
+        this.damage = type.getDamage();
     }
 
     @Override

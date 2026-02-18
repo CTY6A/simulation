@@ -1,5 +1,7 @@
 package com.stubedavd;
 
+import com.stubedavd.elements.*;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
