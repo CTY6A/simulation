@@ -9,7 +9,9 @@ public class Renderer {
         this.worldMap = worldMap;
     }
 
-    public void render() {
+    public void renderTurn(int turnCount) {
+        System.out.println("\n--- Turn " + turnCount + " ---");
+
         renderBorder();
 
         for (int y = worldMap.getHeight() - 1; y >= 0; y--) {

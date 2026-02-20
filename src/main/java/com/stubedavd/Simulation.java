@@ -12,26 +12,30 @@ public class Simulation {
         this.worldMap = new WorldMap(width, height);
         this.renderer = new Renderer(worldMap);
         this.turnCount = 0;
-        actions = new Action();
+        this.actions = new Action();
     }
 
     public void startSimulation() throws InterruptedException {
         actions.initActions(worldMap);
 
-        System.out.println("\n--- Turn " + turnCount + " ---");
-        renderer.render();
-
-            while (true){
-                Thread.sleep(300);
-                nextTurn();
-            }
+        WorldMap beforeMap;
+        do {
+            beforeMap = worldMap.clone();
+            nextTurn();
+        } while (isRunning(beforeMap));
     }
 
-    public void nextTurn() {
+    private boolean isRunning(WorldMap beforeMap) {
+        if (worldMap.equals(beforeMap)) {
+            return false;
+        }
+        return true;
+    }
+
+    private void nextTurn() throws InterruptedException {
         turnCount++;
-        System.out.println("\n--- Turn " + turnCount + " ---");
+        renderer.renderTurn(turnCount);
+        Thread.sleep(300);
         actions.turnActions(worldMap);
-        renderer.render();
     }
-
 }

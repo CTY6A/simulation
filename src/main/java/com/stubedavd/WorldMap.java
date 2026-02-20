@@ -4,6 +4,7 @@ import com.stubedavd.elements.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
 
 public class WorldMap {
@@ -119,6 +120,25 @@ public class WorldMap {
             }
         }
         return null;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        WorldMap worldMap = (WorldMap) o;
+        return width == worldMap.width && height == worldMap.height && Objects.deepEquals(entities, worldMap.entities);
+    }
+
+    @Override
+    public WorldMap clone() {
+        WorldMap clonedMap = new WorldMap(width, height);
+        clonedMap.entities.putAll(entities);
+        return clonedMap;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(width, height, entities);
     }
 
     public int getWidth() {
