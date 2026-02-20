@@ -6,13 +6,11 @@ import com.stubedavd.elements.types.TreeType;
 public class Tree extends Entity {
     private final TreeType type;
 
-    public Tree(Position position) {
-        super(position);
+    public Tree() {
         this.type = TreeType.getRandom();
     }
 
-    public Tree(Position position, TreeType type) {
-        super(position);
+    public Tree(TreeType type) {
         this.type = type;
     }
 

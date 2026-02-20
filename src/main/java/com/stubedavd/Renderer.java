@@ -3,17 +3,24 @@ package com.stubedavd;
 import com.stubedavd.elements.Entity;
 
 public class Renderer {
-    private final WorldMap worldMap;
-
-    public Renderer(WorldMap worldMap) {
-        this.worldMap = worldMap;
-    }
-
-    public void renderTurn(int turnCount) {
+    public void render(final WorldMap worldMap, final int turnCount) {
         System.out.println("\n--- Turn " + turnCount + " ---");
 
-        renderBorder();
+        renderBorder(worldMap);
 
+        renderBody(worldMap);
+
+        renderBorder(worldMap);
+    }
+
+    private void renderBorder(final WorldMap worldMap) {
+        for (int i = 0; i < worldMap.getWidth() + 2; i++) {
+            System.out.print("⬛️");
+        }
+        System.out.println();
+    }
+
+    private static void renderBody(final WorldMap worldMap) {
         for (int y = worldMap.getHeight() - 1; y >= 0; y--) {
             System.out.print("⬛️");
 
@@ -30,14 +37,5 @@ public class Renderer {
 
             System.out.println("⬛️");
         }
-
-        renderBorder();
-    }
-
-    private void renderBorder() {
-        for (int i = 0; i < worldMap.getWidth() + 2; i++) {
-            System.out.print("⬛️");
-        }
-        System.out.println();
     }
 }

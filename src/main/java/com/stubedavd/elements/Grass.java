@@ -6,13 +6,11 @@ import com.stubedavd.Position;
 public class Grass extends Entity {
     private final GrassType type;
 
-    public Grass(Position position) {
-        super(position);
+    public Grass() {
         this.type = GrassType.getRandom();
     }
 
-    public Grass(Position position, GrassType type) {
-        super(position);
+    public Grass(GrassType type) {
         this.type = type;
     }
 

@@ -4,7 +4,7 @@ public class Position {
     private final int x;
     private final int y;
 
-    public Position(int x, int y) {
+    public Position(final int x, final int y) {
         this.x = x;
         this.y = y;
     }
@@ -12,8 +12,12 @@ public class Position {
     public int getX() { return x; }
     public int getY() { return y; }
 
+    public int distanceTo(final Position position) {
+        return Math.abs(x - position.getX()) + Math.abs(y - position.getY());
+    }
+
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         Position position = (Position) obj;
@@ -28,9 +32,5 @@ public class Position {
     @Override
     public String toString() {
         return "(" + x + "," + y + ")";
-    }
-
-    public int distanceTo(Position position) {
-        return (Math.abs(x - position.getX()) + Math.abs(y - position.getY())) * 10;
     }
 }

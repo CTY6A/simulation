@@ -8,20 +8,18 @@ import com.stubedavd.WorldMap;
 public class Herbivore extends Creature {
     private final HerbivoreType type;
 
-    public Herbivore(Position position) {
-        super(position);
+    public Herbivore() {
         this.type = HerbivoreType.getRandom();
     }
 
-    public Herbivore(Position position, HerbivoreType type) {
-        super(position);
+    public Herbivore(HerbivoreType type) {
         this.type = type;
     }
 
     @Override
     public void makeMove(WorldMap worldMap) {
         Position newPosition = null;
-        Astar bfs = new Astar(worldMap, this.getPosition(), newPosition);
+        Astar bfs = new Astar(worldMap, worldMap.getPositionByEntity(this), newPosition);
         bfs.findPath();
         Position closestGrass = bfs.findClosestGrass();
         System.out.println(closestGrass);

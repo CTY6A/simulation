@@ -6,13 +6,11 @@ import com.stubedavd.elements.types.RockType;
 public class Rock extends Entity {
     private final RockType type;
 
-    public Rock(Position position) {
-        super(position);
+    public Rock() {
         this.type = RockType.getRandom();
     }
 
-    public Rock(Position position, RockType type) {
-        super(position);
+    public Rock(RockType type) {
         this.type = type;
     }
 

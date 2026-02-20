@@ -8,14 +8,12 @@ public class Predator extends Creature {
     private final PredatorType type;
     private final int damage;
 
-    public Predator(Position position) {
-        super(position);
+    public Predator() {
         this.type = PredatorType.getRandom();
         this.damage = type.getDamage();
     }
 
-    public Predator(Position position, PredatorType type) {
-        super(position);
+    public Predator(PredatorType type) {
         this.type = type;
         this.damage = type.getDamage();
     }
@@ -33,9 +31,9 @@ public class Predator extends Creature {
         }
 
         if (herbivore != null) {
-            worldMap.removeEntity(herbivore.getPosition());
+            worldMap.removeEntity(worldMap.getPositionByEntity(herbivore));
             this.heal(10);
-            newPosition = herbivore.getPosition();
+            newPosition = worldMap.getPositionByEntity(herbivore);
         }
 
         worldMap.moveEntity(this, newPosition);

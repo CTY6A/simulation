@@ -8,10 +8,6 @@ public abstract class Creature extends Entity {
     private int speed;
     private int healthPoints = MAX_HEALTH_POINTS;
 
-    public Creature(Position position) {
-        super(position);
-    }
-
     public void makeMove(WorldMap worldMap) {
         Position newPosition = worldMap.getRandomEmptyPosition();
         worldMap.moveEntity(this, newPosition);

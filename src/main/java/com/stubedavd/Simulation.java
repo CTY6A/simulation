@@ -4,15 +4,16 @@ import com.stubedavd.actions.Action;
 
 public class Simulation {
     private final WorldMap worldMap;
-    private int turnCount;
     private final Renderer renderer;
     private final Action actions;
 
+    private int turnCount;
+
     public Simulation(final int width, final int height) {
         this.worldMap = new WorldMap(width, height);
-        this.renderer = new Renderer(worldMap);
-        this.turnCount = 0;
+        this.renderer = new Renderer();
         this.actions = new Action();
+        this.turnCount = 0;
     }
 
     public void startSimulation() throws InterruptedException {
@@ -25,17 +26,17 @@ public class Simulation {
         } while (isRunning(beforeMap));
     }
 
-    private boolean isRunning(WorldMap beforeMap) {
+    private void nextTurn() throws InterruptedException {
+        turnCount++;
+        renderer.render(worldMap, turnCount);
+        Thread.sleep(300);
+        actions.turnActions(worldMap);
+    }
+
+    private boolean isRunning(final WorldMap beforeMap) {
         if (worldMap.equals(beforeMap)) {
             return false;
         }
         return true;
-    }
-
-    private void nextTurn() throws InterruptedException {
-        turnCount++;
-        renderer.renderTurn(turnCount);
-        Thread.sleep(300);
-        actions.turnActions(worldMap);
     }
 }

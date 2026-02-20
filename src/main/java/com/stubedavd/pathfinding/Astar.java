@@ -22,8 +22,8 @@ public class Astar {
         Position result = null;
         for (Entity entity : worldMap.getEntities().values()) {
             if (entity instanceof Grass) {
-                if (result == null || entity.getPosition().distanceTo(position) < result.distanceTo(position)) {
-                    result = entity.getPosition();
+                if (result == null || worldMap.getPositionByEntity(entity).distanceTo(position) < result.distanceTo(position)) {
+                    result = worldMap.getPositionByEntity(entity);
                 }
             }
         }
@@ -84,7 +84,7 @@ public class Astar {
                     }
                 }
                 for (AstarNode neighbor : neighbors) {
-                    int newG = current.getG() + 10;
+                    int newG = current.getG() + 1;
                     if (queue.contains(neighbor)) {
                         AstarNode queueNode = queue.stream().filter(n -> n.equals(neighbor)).findFirst().get();
                         queue.remove(queueNode);
