@@ -6,8 +6,7 @@ public enum GrassType {
     CLOVER("☘️", "Клевер"),
     HERB("🌾", "Злак"),
     FIELD("🍀", "Полевая трава"),
-    WILTED("🥀", "Увядшая трава"),
-    DRY("🍂", "Сухая трава");
+    WILTED("🥀", "Увядшая трава");
 
     private final String emoji;
     private final String description;

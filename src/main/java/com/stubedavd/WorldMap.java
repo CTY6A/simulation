@@ -63,51 +63,6 @@ public class WorldMap {
         return entities.containsValue(entity);
     }
 
-    public void generateRandomRocks(int rocksCount) {
-        for (int i = 0; i < rocksCount; i++) {
-            Position randomPos = getRandomEmptyPosition();
-            if (randomPos != null) {
-                placeEntity(randomPos, new Rock());
-            }
-        }
-    }
-
-    public void generateRandomGrass(int grassCount) {
-        for (int i = 0; i < grassCount; i++) {
-            Position randomPos = getRandomEmptyPosition();
-            if (randomPos != null) {
-                placeEntity(randomPos, new Grass());
-            }
-        }
-    }
-
-    public void generateRandomTrees(int treesCount) {
-        for (int i = 0; i < treesCount; i++) {
-            Position randomPos = getRandomEmptyPosition();
-            if (randomPos != null) {
-                placeEntity(randomPos, new Tree());
-            }
-        }
-    }
-
-    public void generateRandomHerbivores(int herbivoresCount) {
-        for (int i = 0; i < herbivoresCount; i++) {
-            Position randomPos = getRandomEmptyPosition();
-            if (randomPos != null) {
-                placeEntity(randomPos, new Herbivore());
-            }
-        }
-    }
-
-    public void generateRandomPredators(int predatorsCount) {
-        for (int i = 0; i < predatorsCount; i++) {
-            Position randomPos = getRandomEmptyPosition();
-            if (randomPos != null) {
-                placeEntity(randomPos, new Predator());
-            }
-        }
-    }
-
     public Position getRandomEmptyPosition() {
         for (int attempts = 0; attempts < width * height * 2; attempts++) {
             int x = random.nextInt(width);
@@ -121,18 +76,31 @@ public class WorldMap {
         return null;
     }
 
+    public int getEntityRate(Class<? extends Entity> entityClass) {
+        int count = 0;
+        for (Entity entity : entities.values()) {
+            if (entity.getClass().equals(entityClass)) {
+                count++;
+            }
+        }
+        return count * 100 / width * height;
+    }
+
+    public Map<Position, Entity> getEntitiesByClass(Class<? extends Entity> entityClass) {
+        Map<Position, Entity> resultEntities = new HashMap<>();
+        for (Map.Entry<Position, Entity> entry : entities.entrySet()) {
+            if (entityClass.isAssignableFrom(entry.getValue().getClass())) {
+                resultEntities.put(entry.getKey(), entry.getValue());
+            }
+        }
+        return resultEntities;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         WorldMap worldMap = (WorldMap) o;
         return width == worldMap.width && height == worldMap.height && Objects.deepEquals(entities, worldMap.entities);
-    }
-
-    @Override
-    public WorldMap clone() {
-        WorldMap clonedMap = new WorldMap(width, height);
-        clonedMap.entities.putAll(entities);
-        return clonedMap;
     }
 
     @Override
@@ -145,8 +113,5 @@ public class WorldMap {
     }
     public int getHeight() {
         return height;
-    }
-    public Map<Position, Entity> getEntities() {
-        return entities;
     }
 }

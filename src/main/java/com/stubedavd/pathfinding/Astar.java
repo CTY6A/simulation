@@ -18,14 +18,17 @@ public class Astar {
     private AstarNode startNode;
     private AstarNode endNode;
 
-    public Position findClosestGrass() {
+    public Position findClosestTargetByClass(Class<? extends Entity> targetType) {
         Position result = null;
-        for (Entity entity : worldMap.getEntities().values()) {
-            if (entity instanceof Grass) {
-                if (result == null || worldMap.getPositionByEntity(entity).distanceTo(position) < result.distanceTo(position)) {
-                    result = worldMap.getPositionByEntity(entity);
+        Map<Position, Entity> targets = worldMap.getEntitiesByClass(targetType);
+
+        for (Map.Entry<Position, Entity> possibleTarget : targets.entrySet()) {
+            //if (possibleTarget.getValue().getClass().equals(targetType)) {
+                Position possibleTargetPosition = possibleTarget.getKey();
+                if (result == null || possibleTargetPosition.distanceTo(position) < result.distanceTo(position)) {
+                    result = possibleTargetPosition;
                 }
-            }
+            //}
         }
         return result;
     }
@@ -52,7 +55,7 @@ public class Astar {
     }
 
     public ArrayList<Position> findPath() {
-        targetPosition = findClosestGrass();
+        targetPosition = findClosestTargetByClass(Grass.class);
         if (targetPosition != null) {
             startNode = new AstarNode(position);
             endNode = new AstarNode(targetPosition);

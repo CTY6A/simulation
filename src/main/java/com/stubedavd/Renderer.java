@@ -11,6 +11,9 @@ public class Renderer {
         renderBody(worldMap);
 
         renderBorder(worldMap);
+
+        System.out.println("  space - pause/resume");
+        System.out.println("  's'    - stop simulation");
     }
 
     private void renderBorder(final WorldMap worldMap) {

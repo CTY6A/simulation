@@ -21,7 +21,7 @@ public class Herbivore extends Creature {
         Position newPosition = null;
         Astar bfs = new Astar(worldMap, worldMap.getPositionByEntity(this), newPosition);
         bfs.findPath();
-        Position closestGrass = bfs.findClosestGrass();
+        Position closestGrass = bfs.findClosestTargetByClass(Grass.class);
         System.out.println(closestGrass);
         System.out.println(bfs.getPath());
 //        Position secondPosition = null;

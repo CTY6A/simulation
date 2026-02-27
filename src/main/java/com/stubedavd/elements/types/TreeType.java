@@ -6,8 +6,6 @@ public enum TreeType {
     PALM("🌴", "Пальма"),
     BAMBOO("🎍", "Бамбук"),
     CACTUS("🌵", "Кактус"),
-    MAPLE("🍁", "Клен"),
-    CHERRY("🌸", "Сакура"),
     PINE("🎄", "Сосна");
 
     private final String emoji;

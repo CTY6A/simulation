@@ -23,7 +23,7 @@ public class Predator extends Creature {
         Herbivore herbivore = null;
         Position newPosition = worldMap.getRandomEmptyPosition();
 
-        for (Entity entity : worldMap.getEntities().values()) {
+        for (Entity entity : worldMap.getEntitiesByClass(Herbivore.class).values()) {
             if (entity instanceof Herbivore) {
                 herbivore = (Herbivore) entity;
                 break;
