@@ -2,63 +2,49 @@ package com.stubedavd.pathfinding;
 
 import com.stubedavd.Position;
 import com.stubedavd.WorldMap;
-import com.stubedavd.elements.Entity;
 import com.stubedavd.elements.Grass;
 
 import java.util.*;
 
 public class Astar {
-    private Position position;
+    private Position startPosition;
     private ArrayList<Position> path;
     private HashSet<AstarNode> visited;
     private PriorityQueue<AstarNode> queue;
     private WorldMap worldMap;
-    private Position targetPosition;
+    private Position endPosition;
 
     private AstarNode startNode;
     private AstarNode endNode;
 
-    public Position findClosestTargetByClass(Class<? extends Entity> targetType) {
-        Position result = null;
-        Map<Position, Entity> targets = worldMap.getEntitiesByClass(targetType);
 
-        for (Map.Entry<Position, Entity> possibleTarget : targets.entrySet()) {
-            //if (possibleTarget.getValue().getClass().equals(targetType)) {
-                Position possibleTargetPosition = possibleTarget.getKey();
-                if (result == null || possibleTargetPosition.distanceTo(position) < result.distanceTo(position)) {
-                    result = possibleTargetPosition;
-                }
-            //}
-        }
-        return result;
+
+    public void setEndPosition(Position endPosition) {
+        this.endPosition = endPosition;
     }
 
-    public void setTargetPosition(Position targetPosition) {
-        this.targetPosition = targetPosition;
+    public Position getEndPosition() {
+        return endPosition;
     }
 
-    public Position getTargetPosition() {
-        return targetPosition;
-    }
-
-    public Astar(WorldMap worldMap, Position position, Position targetPosition) {
-        this.position = position;
+    public Astar(WorldMap worldMap, Position startPosition, Position endPosition) {
+        this.startPosition = startPosition;
         this.path = new ArrayList<>();
         this.visited = new HashSet<>();
         this.queue = new PriorityQueue<>();
         this.worldMap = worldMap;
-        this.targetPosition = null;
+        this.endPosition = null;
     }
 
     public ArrayList<Position> getPath() {
         return path;
     }
 
-    public ArrayList<Position> findPath() {
-        targetPosition = findClosestTargetByClass(Grass.class);
-        if (targetPosition != null) {
-            startNode = new AstarNode(position);
-            endNode = new AstarNode(targetPosition);
+    public ArrayList<Position> findPath(Position startPosition, Position endPosition) {
+        this.endPosition = worldMap.findClosestTargetByClass(this.startPosition, Grass.class);
+        if (this.endPosition != null) {
+            startNode = new AstarNode(startPosition);
+            endNode = new AstarNode(endPosition);
             queue.add(startNode);
 
             while (!queue.isEmpty()) {
@@ -81,7 +67,7 @@ public class Astar {
                             continue;
                         }
                         AstarNode neighbor = new AstarNode(new Position(current.getPosition().getX() + i, current.getPosition().getY() + j));
-                        if (worldMap.isValidPosition(neighbor.getPosition()) && !visited.contains(neighbor) && (worldMap.isEmptyPosition(neighbor.getPosition()) || worldMap.getEntityAt(neighbor.getPosition()) instanceof Grass)) {
+                        if (worldMap.isValidPosition(neighbor.getPosition()) && !visited.contains(neighbor) && (worldMap.isEmptyPosition(neighbor.getPosition()) || neighbor.getPosition().equals(endPosition)/* || worldMap.getEntityAt(neighbor.getPosition()) instanceof Grass*/)) {
                             neighbors.add(neighbor);
                         }
                     }

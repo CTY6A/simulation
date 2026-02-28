@@ -2,11 +2,11 @@ package com.stubedavd.elements;
 
 import com.stubedavd.Position;
 import com.stubedavd.WorldMap;
+import com.stubedavd.elements.types.HealthPoints;
 
-public abstract class Creature extends Entity {
-    private final int MAX_HEALTH_POINTS = 100;
-    private int speed;
-    private int healthPoints = MAX_HEALTH_POINTS;
+public abstract class Creature extends Entity implements HealthPoints {
+    protected int healthPoints;
+    protected int hunger = 0;
 
     public void makeMove(WorldMap worldMap) {
         Position newPosition = worldMap.getRandomEmptyPosition();
@@ -20,14 +20,11 @@ public abstract class Creature extends Entity {
         }
     }
 
-    public void heal(int amount) {
-        healthPoints += amount;
-        if (healthPoints > MAX_HEALTH_POINTS) {
-            healthPoints = MAX_HEALTH_POINTS;
-        }
-    }
-
     public int getHealthPoints() {
         return healthPoints;
+    }
+
+    public int getHunger() {
+        return hunger;
     }
 }

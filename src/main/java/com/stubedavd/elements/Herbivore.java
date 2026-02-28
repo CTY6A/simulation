@@ -5,25 +5,33 @@ import com.stubedavd.elements.types.HerbivoreType;
 import com.stubedavd.Position;
 import com.stubedavd.WorldMap;
 
+import java.util.ArrayList;
+
 public class Herbivore extends Creature {
     private final HerbivoreType type;
 
+    private boolean readyToReproduce = false;
+
     public Herbivore() {
         this.type = HerbivoreType.getRandom();
+        this.healthPoints = type.getHealthPoints();
     }
 
     public Herbivore(HerbivoreType type) {
         this.type = type;
+        this.healthPoints = type.getHealthPoints();
     }
 
     @Override
     public void makeMove(WorldMap worldMap) {
+        this.hunger++;
         Position newPosition = null;
         Astar bfs = new Astar(worldMap, worldMap.getPositionByEntity(this), newPosition);
-        bfs.findPath();
-        Position closestGrass = bfs.findClosestTargetByClass(Grass.class);
-        System.out.println(closestGrass);
-        System.out.println(bfs.getPath());
+        Position targetPosition = worldMap.findClosestTargetByClass(worldMap.getPositionByEntity(this), Grass.class);
+        if (targetPosition != null) {
+            bfs.findPath(worldMap.getPositionByEntity(this), targetPosition);
+//        System.out.println(closestGrass);
+//        System.out.println(bfs.getPath());
 //        Position secondPosition = null;
 //        if (!bfs.getPath().isEmpty()) {
 //            secondPosition = bfs.getPath().get(0);
@@ -38,8 +46,32 @@ public class Herbivore extends Creature {
 //            bfs.findPath();
 //        }
 
-        if (bfs.getPath().size() >= 2) {
-            worldMap.moveEntity(this, bfs.getPath().get(1));
+            ArrayList<Position> path = bfs.getPath();
+            if (path.size() > 2) {
+                path.remove(path.size() - 1);
+                if (path.size() - 1 > type.getSpeed()) {
+                    path.subList(type.getSpeed() + 1, path.size()).clear();
+                }
+                do {
+                    worldMap.moveEntity(this, bfs.getPath().get(1));
+                    path.remove(0);
+                } while (path.size() > 1);
+            } else if (path.size() == 2) {
+                worldMap.removeEntity(path.get(1));
+                this.heal(5);
+                this.hunger = 0;
+            }
+        }
+        if (this.hunger > 3) {
+            this.takeDamage(type.getHealthPoints() / 10 * this.hunger);
+        }
+    }
+
+
+    public void heal(int amount) {
+        healthPoints += amount;
+        if (healthPoints > type.getHealthPoints()) {
+            healthPoints = type.getHealthPoints();
         }
     }
 

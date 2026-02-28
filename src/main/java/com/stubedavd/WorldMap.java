@@ -76,6 +76,21 @@ public class WorldMap {
         return null;
     }
 
+    public Position findClosestTargetByClass(Position position, Class<? extends Entity> targetType) {
+        Position result = null;
+        Map<Position, Entity> targets = getEntitiesByClass(targetType);
+
+        for (Map.Entry<Position, Entity> possibleTarget : targets.entrySet()) {
+            //if (possibleTarget.getValue().getClass().equals(targetType)) {
+            Position possibleTargetPosition = possibleTarget.getKey();
+            if (result == null || possibleTargetPosition.distanceTo(position) < result.distanceTo(position)) {
+                result = possibleTargetPosition;
+            }
+            //}
+        }
+        return result;
+    }
+
     public int getEntityRate(Class<? extends Entity> entityClass) {
         int count = 0;
         for (Entity entity : entities.values()) {

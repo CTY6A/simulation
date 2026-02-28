@@ -1,12 +1,12 @@
 package com.stubedavd.elements.types;
 
 public enum TreeType {
-    EVERGREEN("🌲", "Хвойное дерево"),
-    DECIDUOUS("🌳", "Лиственное дерево"),
-    PALM("🌴", "Пальма"),
-    BAMBOO("🎍", "Бамбук"),
-    CACTUS("🌵", "Кактус"),
-    PINE("🎄", "Сосна");
+    EVERGREEN("🌲", "Evergreen tree"),
+    DECIDUOUS("🌳", "Deciduous tree"),
+    PALM("🌴", "Palm tree"),
+    BAMBOO("🎍", "Bamboo"),
+    CACTUS("🌵", "Cactus"),
+    PINE("🎄", "Pine tree");
 
     private final String emoji;
     private final String description;

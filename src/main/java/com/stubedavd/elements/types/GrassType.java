@@ -1,12 +1,12 @@
 package com.stubedavd.elements.types;
 
 public enum GrassType {
-    FRESH("🌱", "Свежая трава"),
-    GREEN("🌿", "Зелёная трава"),
-    CLOVER("☘️", "Клевер"),
-    HERB("🌾", "Злак"),
-    FIELD("🍀", "Полевая трава"),
-    WILTED("🥀", "Увядшая трава");
+    FRESH("🌱", "Fresh grass"),
+    GREEN("🌿", "Green grass"),
+    CLOVER("☘️", "Clover"),
+    HERB("🌾", "Grain"),
+    FIELD("🍀", "Field grass"),
+    WILTED("🥀", "Wilted grass");
 
     private final String emoji;
     private final String description;

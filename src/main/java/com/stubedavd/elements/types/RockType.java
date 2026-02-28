@@ -1,9 +1,8 @@
 package com.stubedavd.elements.types;
 
 public enum RockType {
-    MOUNTAIN("\u26F0\uFE0F", "Гора"),
-    ROCK("\uD83D\uDDFB", "Скала")/*,
-    GRAVE("⚰\uFE0F", "Могильный камень")*/;
+    MOUNTAIN("\u26F0\uFE0F", "Mountain"),
+    ROCK("\uD83D\uDDFB", "Rock");
 
     private final String emoji;
     private final String description;
