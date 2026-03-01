@@ -52,10 +52,6 @@ public class Node implements Comparable<Node> {
         this.h = h;
     }
 
-    public int getF() {
-        return f;
-    }
-
     public void setF(int f) {
         this.f = f;
     }

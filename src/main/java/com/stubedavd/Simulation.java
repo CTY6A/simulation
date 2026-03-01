@@ -15,6 +15,7 @@ public class Simulation {
     private final static int HERBIVORE_SPAWN_RATE = 15;
     private final static int PREDATOR_SPAWN_RATE = 5;
     private final static int DELAY = 300;
+    private static final int MAX_TURNS = 100000;
 
     private final WorldMap worldMap;
     private final Renderer renderer;
@@ -51,10 +52,9 @@ public class Simulation {
             action.perform(worldMap);
         }
 
-        // start simulation infinity loop
-        while (true) {
-            Thread.sleep(DELAY); // small delay to reduce CPU load
-
+        // start simulation
+        while (turnCount < MAX_TURNS) {
+            Thread.sleep(DELAY);
             if (!paused) {
                 nextTurn();
             }
