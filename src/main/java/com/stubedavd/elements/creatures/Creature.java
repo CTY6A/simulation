@@ -4,7 +4,7 @@ import com.stubedavd.Position;
 import com.stubedavd.WorldMap;
 import com.stubedavd.elements.Entity;
 import com.stubedavd.elements.types.creatureTypes.Liveable;
-import com.stubedavd.pathfinding.Astar;
+import com.stubedavd.pathfinding.AStar;
 
 import java.util.ArrayList;
 
@@ -33,7 +33,7 @@ public abstract class Creature extends Entity {
             return;
         }
 
-        Astar pathFinder = new Astar(worldMap);
+        AStar pathFinder = new AStar(worldMap);
         ArrayList<Position> path = pathFinder.findPath(currentPosition, targetPosition);
         if (path == null || path.isEmpty()) {
             return;

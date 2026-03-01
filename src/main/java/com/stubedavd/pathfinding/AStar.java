@@ -5,7 +5,7 @@ import com.stubedavd.WorldMap;
 
 import java.util.*;
 
-public class Astar {
+public class AStar {
     public static final int ONE_STEP = 1;
     private final WorldMap worldMap;
 
@@ -13,7 +13,7 @@ public class Astar {
     private final PriorityQueue<Node> queue;
     private final HashSet<Node> visited;
 
-    public Astar(WorldMap worldMap) {
+    public AStar(WorldMap worldMap) {
         this.worldMap = worldMap;
         this.queue = new PriorityQueue<>();
         this.visited = new HashSet<>();
