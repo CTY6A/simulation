@@ -24,7 +24,7 @@ public class Predator extends Creature {
     public void makeMove(WorldMap worldMap) {
         this.hunger++;
         Position newPosition = null;
-        Astar bfs = new Astar(worldMap, worldMap.getPositionByEntity(this), newPosition);
+        Astar bfs = new Astar(worldMap);
         Position targetPosition = worldMap.findClosestTargetByClass(worldMap.getPositionByEntity(this), Herbivore.class);
         if (targetPosition != null) {
             bfs.findPath(worldMap.getPositionByEntity(this), targetPosition);
@@ -47,8 +47,8 @@ public class Predator extends Creature {
             }
         }
 
-        if (this.hunger > 3) {
-            this.takeDamage(type.getHealthPoints() / 10 * this.hunger);
+        if (this.hunger > 5) {
+            this.takeDamage(type.getHealthPoints() / 20 * this.hunger);
         }
     }
 

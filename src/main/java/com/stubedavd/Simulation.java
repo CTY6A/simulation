@@ -9,8 +9,8 @@ import com.stubedavd.elements.*;
 import java.util.ArrayList;
 
 public class Simulation {
-    private final static int MIN_SPAWN_RATE = 0;
-    private final static int SPAWN_RATE_PERCENT = 15;
+    private final static int MIN_SPAWN_RATE = 5;
+    private final static int SPAWN_RATE_PERCENT = 10;
     private final static int PERCENT_100 = 100;
     private final static int DELAY = 300;
 

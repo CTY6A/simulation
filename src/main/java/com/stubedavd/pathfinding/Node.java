@@ -4,18 +4,18 @@ import com.stubedavd.Position;
 
 import java.util.Objects;
 
-public class AstarNode implements Comparable<AstarNode> {
+public class Node implements Comparable<Node> {
     private final Position position;
     private int g = 0;
     private int h = 0;
     private int f = 0;
-    private AstarNode parent = null;
+    private Node parent = null;
 
     public Position getPosition() {
         return position;
     }
 
-    public AstarNode(Position position) {
+    public Node(Position position) {
         this.position = position;
         this.g = g;
         this.h = h;
@@ -26,8 +26,8 @@ public class AstarNode implements Comparable<AstarNode> {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        AstarNode astarNode = (AstarNode) o;
-        return Objects.equals(position, astarNode.position);
+        Node node = (Node) o;
+        return Objects.equals(position, node.position);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class AstarNode implements Comparable<AstarNode> {
     }
 
     @Override
-    public int compareTo(AstarNode o) {
+    public int compareTo(Node o) {
         if (f < o.f) return -1;
         if (f > o.f) return 1;
         return 0;
@@ -66,11 +66,11 @@ public class AstarNode implements Comparable<AstarNode> {
         this.f = f;
     }
 
-    public void setParent(AstarNode parent) {
+    public void setParent(Node parent) {
         this.parent = parent;
     }
 
-    public AstarNode getParent() {
+    public Node getParent() {
         return parent;
     }
 }

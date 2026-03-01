@@ -17,9 +17,9 @@ public class Herbivore extends Creature {
 
     @Override
     public void makeMove(WorldMap worldMap) {
-        this.hunger++;
+        hunger++;
         Position newPosition = null;
-        Astar bfs = new Astar(worldMap, worldMap.getPositionByEntity(this), newPosition);
+        Astar bfs = new Astar(worldMap);
         Position targetPosition = worldMap.findClosestTargetByClass(worldMap.getPositionByEntity(this), Grass.class);
         if (targetPosition != null) {
             bfs.findPath(worldMap.getPositionByEntity(this), targetPosition);
@@ -40,8 +40,8 @@ public class Herbivore extends Creature {
                 this.hunger = 0;
             }
         }
-        if (this.hunger > 3) {
-            this.takeDamage(type.getHealthPoints() / 10 * this.hunger);
+        if (this.hunger > 5) {
+            this.takeDamage(type.getHealthPoints() / 20 * this.hunger);
         }
     }
 
