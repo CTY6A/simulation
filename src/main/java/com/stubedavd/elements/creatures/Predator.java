@@ -20,8 +20,8 @@ public class Predator extends Creature {
         Entity entity = worldMap.getEntityAt(targetPosition);
         Herbivore herbivore = (Herbivore) entity;
         herbivore.takeDamage(damage);
-        this.heal(damage / 2);
-        this.hunger = 0;
+        this.heal(damage * HP_DAMAGE_PERCENT / PERCENT_100);
+        this.hunger = MIN_HUNGER_COUNT;
     }
 
     @Override

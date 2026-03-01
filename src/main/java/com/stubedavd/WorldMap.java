@@ -122,10 +122,10 @@ public class WorldMap {
     }
 
     public int countEntities(Class<? extends Entity> entityClass) {
-        if (entityClass == null) {
-            return 0;
-        }
         int count = 0;
+        if (entityClass == null) {
+            return count;
+        }
         for (Entity entity : entities.values()) {
             if (checkEntityClass(entity, entityClass)) {
                 count++;

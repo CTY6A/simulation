@@ -1,6 +1,8 @@
 package com.stubedavd;
 
 public class Position {
+    public static final int ONE_STEP = 1;
+
     private final int x;
     private final int y;
 
@@ -16,7 +18,17 @@ public class Position {
         if (position == null) {
             return Integer.MAX_VALUE;
         }
-        return Math.abs(x - position.getX()) + Math.abs(y - position.getY());
+
+        int xDistance = Math.abs(x - position.getX());
+        int yDistance = Math.abs(y - position.getY());
+        if (isDiagonal(xDistance, yDistance)) {
+            return ONE_STEP;
+        }
+        return xDistance + yDistance;
+    }
+
+    private boolean isDiagonal(int xDistance, int yDistance) {
+        return xDistance == ONE_STEP && yDistance == ONE_STEP;
     }
 
     @Override

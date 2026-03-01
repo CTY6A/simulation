@@ -6,6 +6,7 @@ import com.stubedavd.WorldMap;
 import java.util.*;
 
 public class Astar {
+    public static final int ONE_STEP = 1;
     private final WorldMap worldMap;
 
     private Node endNode;
@@ -29,7 +30,7 @@ public class Astar {
         while (!queue.isEmpty()) {
             Node currentNode = queue.poll();
             if (currentNode.equals(endNode)) {
-                return pathFormer(currentNode);
+                return pathFormer(currentNode.getParent());
             }
 
             visited.add(currentNode);
@@ -39,27 +40,18 @@ public class Astar {
         return new ArrayList<>();
     }
 
-    private void addNeighborsToQueue(Node currentNode, ArrayList<Node> neighbors) {
-        for (Node neighbor : neighbors) {
-            int newG = currentNode.getG() + 1;
-            if (queue.contains(neighbor)) {
-                Node queueNode = queue.stream().filter(n -> n.equals(neighbor)).findFirst().get();
-                queue.remove(queueNode);
-                if (newG < queueNode.getG()) {
-                    queueNode.setG(newG);
-                    queueNode.setH(neighbor.getPosition().distanceTo(endNode.getPosition()));
-                    queueNode.setF(newG + queueNode.getH());
-                    queueNode.setParent(currentNode);
-                    queue.add(queueNode);
-                }
-            } else {
-                neighbor.setG(newG);
-                neighbor.setH(neighbor.getPosition().distanceTo(endNode.getPosition()));
-                neighbor.setF(newG + neighbor.getH());
-                neighbor.setParent(currentNode);
-                queue.add(neighbor);
-            }
+    private ArrayList<Position> pathFormer(Node targetNode) {
+        ArrayList<Position> result = new ArrayList<>();
+        if (targetNode == null) {
+            return result;
         }
+        Node currentNode = targetNode;
+        while (currentNode.getParent() != null) {
+            result.add(currentNode.getPosition());
+            currentNode = currentNode.getParent();
+        }
+        Collections.reverse(result);
+        return result;
     }
 
     private ArrayList<Node> getNeighbors(Node currentNode) {
@@ -89,13 +81,26 @@ public class Astar {
         return result;
     }
 
-    private ArrayList<Position> pathFormer(Node currentNode) {
-        ArrayList<Position> result = new ArrayList<>();
-        while (currentNode != null) {
-            result.add(currentNode.getPosition());
-            currentNode = currentNode.getParent();
+    private void addNeighborsToQueue(Node currentNode, ArrayList<Node> neighbors) {
+        for (Node neighbor : neighbors) {
+            int newG = currentNode.getG() + ONE_STEP;
+            if (queue.contains(neighbor)) {
+                Node queueNode = queue.stream().filter(n -> n.equals(neighbor)).findFirst().get();
+                queue.remove(queueNode);
+                if (newG < queueNode.getG()) {
+                    queueNode.setG(newG);
+                    queueNode.setH(neighbor.getPosition().distanceTo(endNode.getPosition()));
+                    queueNode.setF(newG + queueNode.getH());
+                    queueNode.setParent(currentNode);
+                    queue.add(queueNode);
+                }
+            } else {
+                neighbor.setG(newG);
+                neighbor.setH(neighbor.getPosition().distanceTo(endNode.getPosition()));
+                neighbor.setF(newG + neighbor.getH());
+                neighbor.setParent(currentNode);
+                queue.add(neighbor);
+            }
         }
-        Collections.reverse(result);
-        return result;
     }
 }

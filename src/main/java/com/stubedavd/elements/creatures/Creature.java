@@ -10,6 +10,10 @@ import java.util.ArrayList;
 
 public abstract class Creature extends Entity {
     public static final int MIN_HUNGER_COUNT = 0;
+    private static final int MIN_HEALTH_POINTS = 0;
+    public static final int HUNGER_TURNS_LIMIT = 10;
+    public static final int HP_DAMAGE_PERCENT = 10;
+    public static final int PERCENT_100 = 100;
     public static final int ONE_STEP = 1;
 
     protected int healthPoints;
@@ -39,30 +43,38 @@ public abstract class Creature extends Entity {
     }
 
     private void followTarget(WorldMap worldMap, ArrayList<Position> path) {
-        path.remove(path.size() - 1);
-        if (path.size() - 1 > type.getSpeed()) {
+        if (path.size() > type.getSpeed()) {
             // remove all positions according to the speed
-            path.subList(type.getSpeed() + 1, path.size()).clear();
+            path.subList(type.getSpeed(), path.size()).clear();
         }
-        int endPoint = path.size() - 1;
+        int endPoint = getEndPoint(path);
         Position endPosition = path.get(endPoint);
         worldMap.moveEntity(this, endPosition);
     }
 
+    private int getEndPoint(ArrayList<Position> path) {
+        return path.size() - 1;
+    }
+
     private void starvation() {
         hunger++;
-        if (this.hunger > 10) {
+        if (isHungerHarmful()) {
             // remove 10% of health points
-            this.takeDamage(type.getHealthPoints() / 10);
+            int percentageDamage = type.getHealthPoints() * HP_DAMAGE_PERCENT / PERCENT_100;
+            this.takeDamage(percentageDamage);
         }
+    }
+
+    private boolean isHungerHarmful() {
+        return this.hunger > HUNGER_TURNS_LIMIT;
     }
 
     protected abstract void eatTarget(WorldMap worldMap, Position targetPosition);
 
     public void takeDamage(int damage) {
         healthPoints -= damage;
-        if (healthPoints < 0) {
-            healthPoints = 0;
+        if (healthPoints < MIN_HEALTH_POINTS) {
+            healthPoints = MIN_HEALTH_POINTS;
         }
     }
 

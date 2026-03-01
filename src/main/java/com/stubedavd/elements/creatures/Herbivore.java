@@ -6,6 +6,8 @@ import com.stubedavd.elements.types.creatureTypes.HerbivoreType;
 
 public class Herbivore extends Creature {
 
+    private static final int HP_HEAL_PERCENT = 10;
+
     public Herbivore() {
         this.type = HerbivoreType.getRandom();
         this.healthPoints = type.getHealthPoints();
@@ -14,8 +16,9 @@ public class Herbivore extends Creature {
     @Override
     protected void eatTarget(WorldMap worldMap, Position targetPosition) {
         worldMap.removeEntity(targetPosition);
-        this.heal(5);
-        this.hunger = 0;
+        int percentageHeal = type.getHealthPoints() * HP_HEAL_PERCENT / PERCENT_100;
+        this.heal(percentageHeal);
+        this.hunger = MIN_HUNGER_COUNT;
     }
 
     @Override
