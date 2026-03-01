@@ -22,16 +22,16 @@ public class Herbivore extends Creature {
         Astar bfs = new Astar(worldMap);
         Position targetPosition = worldMap.findClosestTargetByClass(worldMap.getPositionByEntity(this), Grass.class);
         if (targetPosition != null) {
-            bfs.findPath(worldMap.getPositionByEntity(this), targetPosition);
 
-            ArrayList<Position> path = bfs.getPath();
+            ArrayList<Position> path = bfs.findPath(worldMap.getPositionByEntity(this), targetPosition);
+
             if (path.size() > 2) {
                 path.remove(path.size() - 1);
                 if (path.size() - 1 > type.getSpeed()) {
                     path.subList(type.getSpeed() + 1, path.size()).clear();
                 }
                 do {
-                    worldMap.moveEntity(this, bfs.getPath().get(1));
+                    worldMap.moveEntity(this, path.get(1));
                     path.remove(0);
                 } while (path.size() > 1);
             } else if (path.size() == 2) {
@@ -40,8 +40,8 @@ public class Herbivore extends Creature {
                 this.hunger = 0;
             }
         }
-        if (this.hunger > 5) {
-            this.takeDamage(type.getHealthPoints() / 20 * this.hunger);
+        if (this.hunger > 10) {
+            this.takeDamage(type.getHealthPoints() / 10);
         }
     }
 

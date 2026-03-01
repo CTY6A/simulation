@@ -8,30 +8,32 @@ import java.util.function.Supplier;
 
 public class EntityFactory extends Action {
     private final Supplier<Entity> entitySupplier;
-    private final int minSpawnRate;
-    private final int maxSpawnRate;
+    private final int spawnPercent;
+    private final int extinctionLimit;
 
-    public EntityFactory(Supplier<Entity> entitySupplier, int maxSpawnRate) {
-        this.entitySupplier = entitySupplier;
-        this.minSpawnRate = Integer.MAX_VALUE;
-        this.maxSpawnRate = maxSpawnRate;
+    public EntityFactory(Supplier<Entity> entitySupplier, int spawnPercent) {
+        this(entitySupplier, spawnPercent, 0);
     }
 
-    public EntityFactory(Supplier<Entity> entitySupplier, int minSpawnRate, int maxSpawnRate) {
+    public EntityFactory(Supplier<Entity> entitySupplier, int spawnPercent, int extinctionLimit) {
         this.entitySupplier = entitySupplier;
-        this.minSpawnRate = minSpawnRate;
-        this.maxSpawnRate = maxSpawnRate;
+        this.spawnPercent = spawnPercent;
+        this.extinctionLimit = extinctionLimit;
     }
 
     @Override
     public void perform(WorldMap worldMap) {
-        Entity entity = entitySupplier.get();
-        Class<? extends Entity> entityClass = entity.getClass();
-        int currentRate = worldMap.getEntityRate(entityClass);
-        if (currentRate > minSpawnRate) {
-            return;
+        int maxEntities = spawnPercent * worldMap.getProportion();
+        int numberOfEntities = 0;
+        if (extinctionLimit > 0) {
+            numberOfEntities = worldMap.countEntities(entitySupplier.get().getClass());
+            // calculate entities limit
+            int entitiesLimit = maxEntities - maxEntities * extinctionLimit / 100;
+            if (numberOfEntities > entitiesLimit) {
+                return;
+            }
         }
-        for (int i = currentRate; i < maxSpawnRate; i++) {
+        for (int i = numberOfEntities; i < maxEntities; i++) {
             Position randomPos = worldMap.getRandomEmptyPosition();
             if (randomPos == null) {
                 return;

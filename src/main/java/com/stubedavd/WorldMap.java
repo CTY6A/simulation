@@ -7,12 +7,14 @@ import java.util.*;
 public class WorldMap {
     private final int width;
     private final int height;
+    private final int proportion;
     private final Map<Position, Entity> entities;
     private final Random random;
 
     public WorldMap(int width, int height) {
         this.width = width;
         this.height = height;
+        this.proportion = width * height / 100;
         this.entities = new HashMap<>();
         this.random = new Random();
     }
@@ -60,10 +62,10 @@ public class WorldMap {
     }
 
     public boolean isEmptyPosition(Position position) {
-        if (position == null) {
-            return false;
+        if (isValidPosition(position)) {
+            return entities.get(position) == null;
         }
-        return entities.get(position) == null;
+        return false;
     }
 
     public boolean isEntityExists(Entity entity) {
@@ -119,7 +121,7 @@ public class WorldMap {
         return oldPositionTo;
     }
 
-    public int getEntityRate(Class<? extends Entity> entityClass) {
+    public int countEntities(Class<? extends Entity> entityClass) {
         if (entityClass == null) {
             return 0;
         }
@@ -129,7 +131,7 @@ public class WorldMap {
                 count++;
             }
         }
-        return count * 100 / width * height;
+        return count;
     }
 
     private boolean checkEntityClass(Entity entity, Class<? extends Entity> entityClass) {
@@ -157,5 +159,9 @@ public class WorldMap {
     }
     public int getHeight() {
         return height;
+    }
+
+    public int getProportion() {
+        return proportion;
     }
 }

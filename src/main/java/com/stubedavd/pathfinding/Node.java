@@ -17,10 +17,6 @@ public class Node implements Comparable<Node> {
 
     public Node(Position position) {
         this.position = position;
-        this.g = g;
-        this.h = h;
-        this.f = f;
-        this.parent = parent;
     }
 
     @Override
@@ -37,9 +33,7 @@ public class Node implements Comparable<Node> {
 
     @Override
     public int compareTo(Node o) {
-        if (f < o.f) return -1;
-        if (f > o.f) return 1;
-        return 0;
+        return Integer.compare(f, o.f);
     }
 
     public int getG() {
