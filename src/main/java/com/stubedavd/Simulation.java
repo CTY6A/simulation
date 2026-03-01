@@ -2,6 +2,8 @@ package com.stubedavd;
 
 import com.stubedavd.actions.*;
 import com.stubedavd.elements.*;
+import com.stubedavd.elements.creatures.Herbivore;
+import com.stubedavd.elements.creatures.Predator;
 
 import java.util.ArrayList;
 

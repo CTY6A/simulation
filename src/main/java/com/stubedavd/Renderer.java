@@ -2,8 +2,8 @@ package com.stubedavd;
 
 import com.stubedavd.elements.Entity;
 import com.stubedavd.elements.Grass;
-import com.stubedavd.elements.Herbivore;
-import com.stubedavd.elements.Predator;
+import com.stubedavd.elements.creatures.Herbivore;
+import com.stubedavd.elements.creatures.Predator;
 
 public class Renderer {
     public void render(final WorldMap worldMap, final int turnCount) {

@@ -1,9 +1,9 @@
-package com.stubedavd.elements.types;
+package com.stubedavd.elements.types.creatureTypes;
 
 import com.stubedavd.elements.Entity;
 import com.stubedavd.elements.Grass;
 
-public enum HerbivoreType implements CreatureType {
+public enum HerbivoreType implements Liveable {
     DEER("🦌", 30, 4),
     RABBIT("🐇", 15, 3),
     SQUIRREL("🐿️", 10, 2),
@@ -15,7 +15,7 @@ public enum HerbivoreType implements CreatureType {
     GIRAFFE("🦒",  60, 4),
     KOALA("🐨", 20, 1),
     PANDA("🐼", 40, 1),
-    HAMSTER("🐹", 5, 2),
+    HAMSTER("🐹", 10, 2),
     LLAMA("🦙", 30, 3);
 
     private final String emoji;

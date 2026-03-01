@@ -1,9 +1,9 @@
-package com.stubedavd.elements.types;
+package com.stubedavd.elements.types.creatureTypes;
 
 import com.stubedavd.elements.Entity;
-import com.stubedavd.elements.Herbivore;
+import com.stubedavd.elements.creatures.Herbivore;
 
-public enum PredatorType implements CreatureType{
+public enum PredatorType implements Liveable {
     WOLF("🐺", 30, 4, 15),
     FOX("🦊", 20, 4, 10),
     BEAR("🐻", 60, 3, 25),

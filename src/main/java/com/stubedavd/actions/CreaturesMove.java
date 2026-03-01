@@ -2,7 +2,7 @@ package com.stubedavd.actions;
 
 import com.stubedavd.Position;
 import com.stubedavd.WorldMap;
-import com.stubedavd.elements.Creature;
+import com.stubedavd.elements.creatures.Creature;
 import com.stubedavd.elements.Entity;
 
 import java.util.Map;
