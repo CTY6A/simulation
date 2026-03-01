@@ -1,33 +1,39 @@
 package com.stubedavd;
 
-public class Main {
-    public static void main(String[] args) throws InterruptedException {
-        Simulation simulation = new Simulation(40, 10);
+import java.io.IOException;
 
-        Thread controlThread = new Thread(() -> {
-            try {
-                while (true) {
+public class Main {
+    private final static int DELAY = 300;
+    private final static int MAP_WIDTH = 40;
+    private final static int MAP_HEIGHT = 20;
+    private final static char PAUSE_KEY_CODE_1 = 10;
+    private final static char PAUSE_KEY_CODE_2 = 13;
+
+    public static void main(String[] args) throws InterruptedException {
+        Simulation simulation = new Simulation(MAP_WIDTH, MAP_HEIGHT);
+
+        Thread controlPauseThread = new Thread(() -> {
+            while (true) {
+                try {
                     if (System.in.available() > 0) {
                         int keyCode = System.in.read();
 
-                        // space (ASCII 32)
-                        if (keyCode == 32) {
+                        if (isPausePressed(keyCode)) {
                             simulation.pauseSimulation();
                         }
-                        // 's' or 'S' (ASCII 115 or 83)
-                        else if (keyCode == 115 || keyCode == 83) {
-                            simulation.stopSimulation();
-                            break;
-                        }
                     }
-                    Thread.sleep(100); // small delay to reduce CPU load
+                    Thread.sleep(DELAY); // small delay to reduce CPU load
+                } catch (IOException | InterruptedException e) {
+                    throw new RuntimeException(e);
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
             }
         });
-        controlThread.start();
+        controlPauseThread.start();
 
         simulation.startSimulation();
+    }
+
+    private static boolean isPausePressed(int keyCode) {
+        return keyCode == PAUSE_KEY_CODE_1 || keyCode == PAUSE_KEY_CODE_2;
     }
 }

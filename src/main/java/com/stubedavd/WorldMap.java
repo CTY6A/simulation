@@ -2,10 +2,7 @@ package com.stubedavd;
 
 import com.stubedavd.elements.*;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 
 public class WorldMap {
     private final int width;
@@ -13,37 +10,44 @@ public class WorldMap {
     private final Map<Position, Entity> entities;
     private final Random random;
 
-    public WorldMap(final int width, final int height) {
+    public WorldMap(int width, int height) {
         this.width = width;
         this.height = height;
         this.entities = new HashMap<>();
         this.random = new Random();
     }
 
-    public void placeEntity(final Position position, final Entity entity) {
+    public void placeEntity(Position position, Entity entity) {
         if (isValidPosition(position)) {
             entities.put(position, entity);
         }
     }
 
-    public void removeEntity(final Position position) {
+    public void removeEntity(Position position) {
+        if (position == null) {
+            return;
+        }
         entities.remove(position);
     }
 
-    public void moveEntity(final Entity entity, final Position toPosition) {
-        if (entity != null && toPosition != null) {
-            removeEntity(getPositionByEntity(entity));
-            placeEntity(toPosition, entity);
+    public void moveEntity(Entity entity, Position toPosition) {
+        if (entity == null) {
+            return;
         }
+        removeEntity(getPositionByEntity(entity));
+        placeEntity(toPosition, entity);
     }
 
     public Entity getEntityAt(Position position) {
+        if (position == null) {
+            return null;
+        }
         return entities.get(position);
     }
 
     public Position getPositionByEntity(Entity entity) {
         for (Map.Entry<Position, Entity> entry : entities.entrySet()) {
-            if (entry.getValue() == entity) {
+            if (entry.getValue().equals(entity)) {
                 return entry.getKey();
             }
         }
@@ -56,71 +60,96 @@ public class WorldMap {
     }
 
     public boolean isEmptyPosition(Position position) {
+        if (position == null) {
+            return false;
+        }
         return entities.get(position) == null;
     }
 
     public boolean isEntityExists(Entity entity) {
+        if (entity == null) {
+            return false;
+        }
         return entities.containsValue(entity);
     }
 
     public Position getRandomEmptyPosition() {
-        for (int attempts = 0; attempts < width * height * 2; attempts++) {
-            int x = random.nextInt(width);
-            int y = random.nextInt(height);
-            Position pos = new Position(x, y);
-
-            if (!entities.containsKey(pos)) {
-                return pos;
+        ArrayList<Position> emptyPositions = new ArrayList<>();
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                Position position = new Position(x, y);
+                if (isEmptyPosition(position)) {
+                    emptyPositions.add(position);
+                }
             }
         }
-        return null;
+        if (emptyPositions.isEmpty()) {
+            return null;
+        }
+        int randomIdx = random.nextInt(emptyPositions.size());
+        return emptyPositions.get(randomIdx);
     }
 
     public Position findClosestTargetByClass(Position position, Class<? extends Entity> targetType) {
-        Position result = null;
+        if (position == null || targetType == null) {
+            return null;
+        }
+
         Map<Position, Entity> targets = getEntitiesByClass(targetType);
+        if (targets.isEmpty()) {
+            return null;
+        }
+        Position result = null;
 
         for (Map.Entry<Position, Entity> possibleTarget : targets.entrySet()) {
-            //if (possibleTarget.getValue().getClass().equals(targetType)) {
             Position possibleTargetPosition = possibleTarget.getKey();
-            if (result == null || possibleTargetPosition.distanceTo(position) < result.distanceTo(position)) {
-                result = possibleTargetPosition;
-            }
-            //}
+            result = closestPosition(position, result, possibleTargetPosition);
         }
         return result;
     }
 
+    private Position closestPosition(Position positionFrom, Position oldPositionTo, Position newPositionTo) {
+        if (oldPositionTo == null || newPositionTo == null) {
+            return newPositionTo;
+        }
+        if (positionFrom.distanceTo(newPositionTo) < positionFrom.distanceTo(oldPositionTo)) {
+            return newPositionTo;
+        }
+
+        return oldPositionTo;
+    }
+
     public int getEntityRate(Class<? extends Entity> entityClass) {
+        if (entityClass == null) {
+            return 0;
+        }
         int count = 0;
         for (Entity entity : entities.values()) {
-            if (entity.getClass().equals(entityClass)) {
+            if (checkEntityClass(entity, entityClass)) {
                 count++;
             }
         }
         return count * 100 / width * height;
     }
 
+    private boolean checkEntityClass(Entity entity, Class<? extends Entity> entityClass) {
+        return entity.getClass().equals(entityClass);
+    }
+
     public Map<Position, Entity> getEntitiesByClass(Class<? extends Entity> entityClass) {
         Map<Position, Entity> resultEntities = new HashMap<>();
+        if (entityClass == null) {
+            return resultEntities;
+        }
         for (Map.Entry<Position, Entity> entry : entities.entrySet()) {
-            if (entityClass.isAssignableFrom(entry.getValue().getClass())) {
-                resultEntities.put(entry.getKey(), entry.getValue());
+            Entity currentEntity = entry.getValue();
+            Class<? extends Entity> currentEntityClass = currentEntity.getClass();
+            if (entityClass.isAssignableFrom(currentEntityClass)) {
+                Position currentPosition = entry.getKey();
+                resultEntities.put(currentPosition, currentEntity);
             }
         }
         return resultEntities;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        WorldMap worldMap = (WorldMap) o;
-        return width == worldMap.width && height == worldMap.height && Objects.deepEquals(entities, worldMap.entities);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(width, height, entities);
     }
 
     public int getWidth() {

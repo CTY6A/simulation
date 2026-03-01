@@ -1,6 +1,5 @@
 package com.stubedavd.elements;
 
-import com.stubedavd.Position;
 import com.stubedavd.elements.types.TreeType;
 
 public class Tree extends Entity {
@@ -10,16 +9,8 @@ public class Tree extends Entity {
         this.type = TreeType.getRandom();
     }
 
-    public Tree(TreeType type) {
-        this.type = type;
-    }
-
     @Override
     public String toString() {
         return type.toString();
-    }
-
-    public TreeType getType() {
-        return type;
     }
 }

@@ -1,31 +1,21 @@
 package com.stubedavd.elements.types;
 
 public enum GrassType {
-    FRESH("🌱", "Fresh grass"),
-    GREEN("🌿", "Green grass"),
-    CLOVER("☘️", "Clover"),
-    HERB("🌾", "Grain"),
-    FIELD("🍀", "Field grass"),
-    WILTED("🥀", "Wilted grass");
+    FRESH("🌱"),
+    GREEN("🌿"),
+    CLOVER("☘️"),
+    HERB("🌾"),
+    FIELD("🍀"),
+    WILTED("🥀");
 
     private final String emoji;
-    private final String description;
 
-    GrassType(String emoji, String description) {
+    GrassType(String emoji) {
         this.emoji = emoji;
-        this.description = description;
     }
 
     @Override
     public String toString() {
-        return emoji;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getEmoji() {
         return emoji;
     }
 

@@ -28,21 +28,6 @@ public class Predator extends Creature {
         Position targetPosition = worldMap.findClosestTargetByClass(worldMap.getPositionByEntity(this), Herbivore.class);
         if (targetPosition != null) {
             bfs.findPath(worldMap.getPositionByEntity(this), targetPosition);
-            //        System.out.println(closestGrass);
-//        System.out.println(bfs.getPath());
-//        Position secondPosition = null;
-//        if (!bfs.getPath().isEmpty()) {
-//            secondPosition = bfs.getPath().get(0);
-//            bfs.getPath().remove(0);
-//        } else if (bfs.getTargetPosition() != null) {
-//            secondPosition = bfs.getTargetPosition();
-//            bfs.setTargetPosition(null);
-//            this.heal(25);
-//        }
-//
-//        if (!(worldMap.isEmptyPosition(secondPosition) || worldMap.getEntityAt(secondPosition) instanceof Grass)) {
-//            bfs.findPath();
-//        }
 
             ArrayList<Position> path = bfs.getPath();
             if (path.size() > 2) {

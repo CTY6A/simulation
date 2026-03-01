@@ -1,27 +1,17 @@
 package com.stubedavd.elements.types;
 
 public enum RockType {
-    MOUNTAIN("\u26F0\uFE0F", "Mountain"),
-    ROCK("\uD83D\uDDFB", "Rock");
+    MOUNTAIN("\u26F0\uFE0F"),
+    ROCK("\uD83D\uDDFB");
 
     private final String emoji;
-    private final String description;
 
-    RockType(String emoji, String description) {
+    RockType(String emoji) {
         this.emoji = emoji;
-        this.description = description;
     }
 
     @Override
     public String toString() {
-        return emoji;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getEmoji() {
         return emoji;
     }
 

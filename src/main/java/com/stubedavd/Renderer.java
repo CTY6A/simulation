@@ -1,44 +1,69 @@
 package com.stubedavd;
 
-import com.stubedavd.elements.Entity;
+import com.stubedavd.elements.*;
+
+import java.util.Map;
 
 public class Renderer {
     public void render(final WorldMap worldMap, final int turnCount) {
-        System.out.println("\n--- Turn " + turnCount + " ---");
+        StringBuilder result = new StringBuilder();
+        result.append("--- Turn ").append(turnCount).append(" ---\n");
 
-        renderBorder(worldMap);
+        result.append(renderBorder(worldMap));
 
-        renderBody(worldMap);
+        result.append(renderBody(worldMap));
 
-        renderBorder(worldMap);
+        result.append(renderBorder(worldMap));
 
-        System.out.println("  space - pause/resume");
-        System.out.println("  's'    - stop simulation");
+        result.append(renderStats(worldMap));
+
+        result.append("  Enter - pause/resume\n");
+        System.out.println(result);
     }
 
-    private void renderBorder(final WorldMap worldMap) {
+    private StringBuilder renderBorder(final WorldMap worldMap) {
+        StringBuilder result = new StringBuilder();
         for (int i = 0; i < worldMap.getWidth() + 2; i++) {
-            System.out.print("⬛️");
+            result.append("⬛️");
         }
-        System.out.println();
+        result.append("\n");
+        return result;
     }
 
-    private static void renderBody(final WorldMap worldMap) {
+    private StringBuilder renderBody(final WorldMap worldMap) {
+        StringBuilder result = new StringBuilder();
         for (int y = worldMap.getHeight() - 1; y >= 0; y--) {
-            System.out.print("⬛️");
-
+            result.append("⬛️");
             for (int x = 0; x < worldMap.getWidth(); x++) {
                 Position currentPos = new Position(x, y);
                 Entity entity = worldMap.getEntityAt(currentPos);
 
-                if (entity != null) {
-                    System.out.print(entity);
+                if (entity == null) {
+                    result.append("🟫");
                 } else {
-                    System.out.print("🟫");
+                    result.append(entity);
                 }
             }
 
-            System.out.println("⬛️");
+            result.append("⬛️\n");
         }
+        return result;
+    }
+
+    private StringBuilder renderStats(WorldMap worldMap) {
+        StringBuilder result = new StringBuilder();
+
+        result.append("  Herbivores: ");
+        Map<Position, Entity> entities = worldMap.getEntitiesByClass(Herbivore.class);
+        result.append(entities.size());
+
+        result.append("  Predators: ");
+        entities = worldMap.getEntitiesByClass(Predator.class);
+        result.append(entities.size());
+
+        result.append("  Grass: ");
+        entities = worldMap.getEntitiesByClass(Grass.class);
+        result.append(entities.size());
+        return result;
     }
 }

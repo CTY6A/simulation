@@ -1,42 +1,32 @@
 package com.stubedavd.elements.types;
 
 public enum HerbivoreType {
-    DEER("🦌", "Deer", 30, 4),
-    RABBIT("🐇", "Rabbit", 15, 3),
-    SQUIRREL("🐿️", "Squirrel", 10, 2),
-    GOAT("🐐", "Goat", 25, 3),
-    SHEEP("🐑", "Sheep", 30, 2),
-    COW("🐄", "Cow", 50, 1),
-    HORSE("🐎", "Horse", 35, 5),
-    ELEPHANT("🐘", "Elephant", 100, 3),
-    GIRAFFE("🦒", "Giraffe", 60, 4),
-    KOALA("🐨", "Koala", 20, 1),
-    PANDA("🐼", "Panda", 40, 1),
-    HAMSTER("🐹", "Hamster", 5, 2),
-    LLAMA("🦙", "Llama", 30, 3);
+    DEER("🦌", 30, 4),
+    RABBIT("🐇", 15, 3),
+    SQUIRREL("🐿️", 10, 2),
+    GOAT("🐐", 25, 3),
+    SHEEP("🐑", 30, 2),
+    COW("🐄", 50, 1),
+    HORSE("🐎", 35, 5),
+    ELEPHANT("🐘", 100, 3),
+    GIRAFFE("🦒",  60, 4),
+    KOALA("🐨", 20, 1),
+    PANDA("🐼", 40, 1),
+    HAMSTER("🐹", 5, 2),
+    LLAMA("🦙", 30, 3);
 
     private final String emoji;
-    private final String description;
     private final int healthPoints;
     private final int speed;
 
-    HerbivoreType(String emoji, String description, int healthPoints, int speed) {
+    HerbivoreType(String emoji, int healthPoints, int speed) {
         this.emoji = emoji;
-        this.description = description;
         this.healthPoints = healthPoints;
         this.speed = speed;
     }
 
     @Override
     public String toString() {
-        return emoji;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getEmoji() {
         return emoji;
     }
 

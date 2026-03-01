@@ -1,17 +1,13 @@
 package com.stubedavd.elements;
 
-import com.stubedavd.Position;
 import com.stubedavd.WorldMap;
-import com.stubedavd.elements.types.HealthPoints;
 
-public abstract class Creature extends Entity implements HealthPoints {
+public abstract class Creature extends Entity {
     protected int healthPoints;
     protected int hunger = 0;
 
-    public void makeMove(WorldMap worldMap) {
-        Position newPosition = worldMap.getRandomEmptyPosition();
-        worldMap.moveEntity(this, newPosition);
-    }
+    public abstract void heal(int amount);
+    public abstract void makeMove(WorldMap worldMap);
 
     public void takeDamage(int damage) {
         healthPoints -= damage;
@@ -22,9 +18,5 @@ public abstract class Creature extends Entity implements HealthPoints {
 
     public int getHealthPoints() {
         return healthPoints;
-    }
-
-    public int getHunger() {
-        return hunger;
     }
 }
