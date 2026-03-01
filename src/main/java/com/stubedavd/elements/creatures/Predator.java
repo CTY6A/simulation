@@ -15,13 +15,6 @@ public class Predator extends Creature {
         this.damage = type.getDamage();
     }
 
-    public void heal(int amount) {
-        healthPoints += amount;
-        if (healthPoints > type.getHealthPoints()) {
-            healthPoints = type.getHealthPoints();
-        }
-    }
-
     @Override
     protected void eatTarget(WorldMap worldMap, Position targetPosition) {
         Entity entity = worldMap.getEntityAt(targetPosition);

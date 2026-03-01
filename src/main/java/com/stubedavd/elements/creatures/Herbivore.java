@@ -11,14 +11,6 @@ public class Herbivore extends Creature {
         this.healthPoints = type.getHealthPoints();
     }
 
-
-    public void heal(int amount) {
-        healthPoints += amount;
-        if (healthPoints > type.getHealthPoints()) {
-            healthPoints = type.getHealthPoints();
-        }
-    }
-
     @Override
     protected void eatTarget(WorldMap worldMap, Position targetPosition) {
         worldMap.removeEntity(targetPosition);

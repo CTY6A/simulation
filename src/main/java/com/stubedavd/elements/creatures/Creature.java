@@ -9,11 +9,13 @@ import com.stubedavd.pathfinding.Astar;
 import java.util.ArrayList;
 
 public abstract class Creature extends Entity {
+    public static final int MIN_HUNGER_COUNT = 0;
+    public static final int ONE_STEP = 1;
+
     protected int healthPoints;
-    protected int hunger = 0;
+    protected int hunger = MIN_HUNGER_COUNT;
     protected Liveable type;
 
-    public abstract void heal(int amount);
     public void makeMove(WorldMap worldMap) {
         starvation();
 
@@ -22,14 +24,14 @@ public abstract class Creature extends Entity {
         if (targetPosition == null) {
             return;
         }
-        if (targetPosition.distanceTo(currentPosition) == 1) {
+        if (targetPosition.distanceTo(currentPosition) == ONE_STEP) {
             eatTarget(worldMap, targetPosition);
             return;
         }
 
         Astar pathFinder = new Astar(worldMap);
         ArrayList<Position> path = pathFinder.findPath(currentPosition, targetPosition);
-        if (path == null || path.size() < 3) {
+        if (path == null || path.isEmpty()) {
             return;
         }
 
@@ -61,6 +63,13 @@ public abstract class Creature extends Entity {
         healthPoints -= damage;
         if (healthPoints < 0) {
             healthPoints = 0;
+        }
+    }
+
+    public void heal(int amount) {
+        healthPoints += amount;
+        if (healthPoints > type.getHealthPoints()) {
+            healthPoints = type.getHealthPoints();
         }
     }
 
