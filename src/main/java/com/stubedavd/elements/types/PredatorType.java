@@ -1,6 +1,9 @@
 package com.stubedavd.elements.types;
 
-public enum PredatorType {
+import com.stubedavd.elements.Entity;
+import com.stubedavd.elements.Herbivore;
+
+public enum PredatorType implements CreatureType{
     WOLF("🐺", 30, 4, 15),
     FOX("🦊", 20, 4, 10),
     BEAR("🐻", 60, 3, 25),
@@ -37,6 +40,11 @@ public enum PredatorType {
 
     public int getSpeed() {
         return speed;
+    }
+
+    @Override
+    public Class<? extends Entity> getTargetClass() {
+        return Herbivore.class;
     }
 
     public int getDamage() {

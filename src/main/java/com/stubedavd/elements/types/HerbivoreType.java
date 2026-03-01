@@ -1,6 +1,9 @@
 package com.stubedavd.elements.types;
 
-public enum HerbivoreType {
+import com.stubedavd.elements.Entity;
+import com.stubedavd.elements.Grass;
+
+public enum HerbivoreType implements CreatureType {
     DEER("🦌", 30, 4),
     RABBIT("🐇", 15, 3),
     SQUIRREL("🐿️", 10, 2),
@@ -36,6 +39,11 @@ public enum HerbivoreType {
 
     public int getSpeed() {
         return speed;
+    }
+
+    @Override
+    public Class<? extends Entity> getTargetClass() {
+        return Grass.class;
     }
 
     public static HerbivoreType getRandom() {
