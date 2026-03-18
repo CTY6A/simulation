@@ -4,8 +4,8 @@ import com.stubedavd.actions.*;
 import com.stubedavd.elements.*;
 import com.stubedavd.elements.creatures.Herbivore;
 import com.stubedavd.elements.creatures.Predator;
+import com.stubedavd.utils.Renderer;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class Simulation {
@@ -17,9 +17,7 @@ public class Simulation {
     private final static int HERBIVORE_SPAWN_RATE = 10;
     private final static int PREDATOR_SPAWN_RATE = 5;
 
-    private final static int DELAY = 300;
-    private final static char PAUSE_KEY_CODE_1 = 10;
-    private final static char PAUSE_KEY_CODE_2 = 13;
+    private final static int THREAD_SLEEP = 300;
 
     private final WorldMap worldMap;
     private final Renderer renderer;
@@ -28,7 +26,8 @@ public class Simulation {
 
     private int turnCount;
 
-    private volatile boolean paused = false;
+    private final boolean isRunning;
+    private volatile boolean isPaused;
 
     public Simulation(int width, int height) {
         this.worldMap = new WorldMap(width, height);
@@ -48,6 +47,8 @@ public class Simulation {
             add(new EntityFactory(Predator::new, PREDATOR_SPAWN_RATE, EXTINCTION_LIMIT));
         }};
         this.turnCount = 0;
+        this.isRunning = true;
+        this.isPaused = false;
     }
 
     public void startSimulation() throws InterruptedException {
@@ -56,13 +57,10 @@ public class Simulation {
             action.perform(worldMap);
         }
 
-        Thread controlPauseThread = getControlPauseThread();
-        controlPauseThread.start();
-
         // start simulation
-        while (true) {
-            Thread.sleep(DELAY);
-            if (!paused) {
+        while (isRunning) {
+            Thread.sleep(THREAD_SLEEP);
+            if (!isPaused) {
                 nextTurn();
             }
         }
@@ -78,30 +76,7 @@ public class Simulation {
         }
     }
 
-    private Thread getControlPauseThread() {
-        return new Thread(() -> {
-            while (true) {
-                try {
-                    if (System.in.available() > 0) {
-                        int keyCode = System.in.read();
-
-                        if (isPausePressed(keyCode)) {
-                            pauseSimulation();
-                        }
-                    }
-                    Thread.sleep(DELAY); // small delay to reduce CPU load
-                } catch (IOException | InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        });
-    }
-
-    private static boolean isPausePressed(int keyCode) {
-        return keyCode == PAUSE_KEY_CODE_1 || keyCode == PAUSE_KEY_CODE_2;
-    }
-
-    public void pauseSimulation() {
-        paused = !paused;
+    public synchronized void pauseSimulation() {
+        isPaused = !isPaused;
     }
 }

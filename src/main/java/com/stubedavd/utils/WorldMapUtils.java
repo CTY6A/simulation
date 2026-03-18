@@ -1,5 +1,7 @@
-package com.stubedavd;
+package com.stubedavd.utils;
 
+import com.stubedavd.Position;
+import com.stubedavd.WorldMap;
 import com.stubedavd.elements.Entity;
 
 import java.util.ArrayList;

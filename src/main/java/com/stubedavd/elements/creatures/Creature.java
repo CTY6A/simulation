@@ -1,6 +1,6 @@
 package com.stubedavd.elements.creatures;
 
-import com.stubedavd.WorldMapUtils;
+import com.stubedavd.utils.WorldMapUtils;
 import com.stubedavd.Position;
 import com.stubedavd.WorldMap;
 import com.stubedavd.elements.Entity;
