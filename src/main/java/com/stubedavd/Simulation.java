@@ -5,17 +5,21 @@ import com.stubedavd.elements.*;
 import com.stubedavd.elements.creatures.Herbivore;
 import com.stubedavd.elements.creatures.Predator;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Simulation {
     private final static int EXTINCTION_LIMIT = 50;
+
     private final static int ROCK_SPAWN_RATE = 10;
     private final static int TREE_SPAWN_RATE = 10;
     private final static int GRASS_SPAWN_RATE = 10;
     private final static int HERBIVORE_SPAWN_RATE = 10;
     private final static int PREDATOR_SPAWN_RATE = 5;
+
     private final static int DELAY = 300;
-    private static final int MAX_TURNS = 100000;
+    private final static char PAUSE_KEY_CODE_1 = 10;
+    private final static char PAUSE_KEY_CODE_2 = 13;
 
     private final WorldMap worldMap;
     private final Renderer renderer;
@@ -52,8 +56,11 @@ public class Simulation {
             action.perform(worldMap);
         }
 
+        Thread controlPauseThread = getControlPauseThread();
+        controlPauseThread.start();
+
         // start simulation
-        while (turnCount < MAX_TURNS) {
+        while (true) {
             Thread.sleep(DELAY);
             if (!paused) {
                 nextTurn();
@@ -69,6 +76,29 @@ public class Simulation {
         for (Action action : turnActions) {
             action.perform(worldMap);
         }
+    }
+
+    private Thread getControlPauseThread() {
+        return new Thread(() -> {
+            while (true) {
+                try {
+                    if (System.in.available() > 0) {
+                        int keyCode = System.in.read();
+
+                        if (isPausePressed(keyCode)) {
+                            pauseSimulation();
+                        }
+                    }
+                    Thread.sleep(DELAY); // small delay to reduce CPU load
+                } catch (IOException | InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+    }
+
+    private static boolean isPausePressed(int keyCode) {
+        return keyCode == PAUSE_KEY_CODE_1 || keyCode == PAUSE_KEY_CODE_2;
     }
 
     public void pauseSimulation() {
