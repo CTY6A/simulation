@@ -27,8 +27,8 @@ public class EntityFactory extends Action {
 
     @Override
     public void perform(WorldMap worldMap) {
-        int maxEntities = spawnPercent * worldMap.getProportion();
         WorldMapUtils worldMapUtils = new WorldMapUtils(worldMap);
+        int maxEntities = spawnPercent * worldMapUtils.getProportion();
         int numberOfEntities = worldMapUtils.countEntities(entitySupplier.get().getClass());
         if (extinctionLimit > MIN_EXTINCTION_LIMIT) {
             // subtract extinction limit percentage from max entities
@@ -39,10 +39,9 @@ public class EntityFactory extends Action {
         }
         for (int i = numberOfEntities; i < maxEntities; i++) {
             Position randomPos = worldMapUtils.getRandomEmptyPosition();
-            if (randomPos == null) {
-                return;
+            if (worldMap.isValidPosition(randomPos)) {
+                worldMap.placeEntity(randomPos, entitySupplier.get());
             }
-            worldMap.placeEntity(randomPos, entitySupplier.get());
         }
     }
 }

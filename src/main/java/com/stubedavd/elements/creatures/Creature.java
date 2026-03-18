@@ -27,21 +27,20 @@ public abstract class Creature extends Entity {
         Position currentPosition = worldMap.getPositionByEntity(this);
         WorldMapUtils worldMapUtils = new WorldMapUtils(worldMap);
         Position targetPosition = worldMapUtils.findClosestTargetByClass(currentPosition, type.getTargetClass());
-        if (targetPosition == null) {
-            return;
-        }
-        if (targetPosition.distanceTo(currentPosition) == ONE_STEP) {
-            eatTarget(worldMap, targetPosition);
-            return;
-        }
+        if (worldMap.isValidPosition(targetPosition)) {
+            if (targetPosition.distanceTo(currentPosition) == ONE_STEP) {
+                eatTarget(worldMap, targetPosition);
+                return;
+            }
 
-        AStar pathFinder = new AStar(worldMap);
-        ArrayList<Position> path = pathFinder.findPath(currentPosition, targetPosition);
-        if (path == null || path.isEmpty()) {
-            return;
-        }
+            AStar pathFinder = new AStar(worldMap);
+            ArrayList<Position> path = pathFinder.findPath(currentPosition, targetPosition);
+            if (path == null || path.isEmpty()) {
+                return;
+            }
 
-        followTarget(worldMap, path);
+            followTarget(worldMap, path);
+        }
     }
 
     private void followTarget(WorldMap worldMap, ArrayList<Position> path) {

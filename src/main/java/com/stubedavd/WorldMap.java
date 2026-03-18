@@ -7,13 +7,11 @@ import java.util.*;
 public class WorldMap {
     private final int width;
     private final int height;
-    private final int proportion;
     private final Map<Position, Entity> entities;
 
     public WorldMap(int width, int height) {
         this.width = width;
         this.height = height;
-        this.proportion = width * height / 100;
         this.entities = new HashMap<>();
     }
 
@@ -24,10 +22,21 @@ public class WorldMap {
     }
 
     public void removeEntity(Position position) {
-        if (position == null) {
-            return;
+        if (isValidPosition(position)) {
+            entities.remove(position);
         }
-        entities.remove(position);
+    }
+
+    public Entity getEntityAt(Position position) {
+        if (isValidPosition(position)) {
+            return entities.get(position);
+        }
+        return null;
+    }
+
+    public boolean isValidPosition(Position position) {
+        return position != null && position.getX() >= 0 && position.getX() < width &&
+                position.getY() >= 0 && position.getY() < height;
     }
 
     public void moveEntity(Entity entity, Position toPosition) {
@@ -38,13 +47,6 @@ public class WorldMap {
         placeEntity(toPosition, entity);
     }
 
-    public Entity getEntityAt(Position position) {
-        if (position == null) {
-            return null;
-        }
-        return entities.get(position);
-    }
-
     public Position getPositionByEntity(Entity entity) {
         for (Map.Entry<Position, Entity> entry : entities.entrySet()) {
             if (entry.getValue().equals(entity)) {
@@ -52,11 +54,6 @@ public class WorldMap {
             }
         }
         return null;
-    }
-
-    public boolean isValidPosition(Position position) {
-        return position != null && position.getX() >= 0 && position.getX() < width &&
-                position.getY() >= 0 && position.getY() < height;
     }
 
     public boolean isEmptyPosition(Position position) {
@@ -94,9 +91,5 @@ public class WorldMap {
     }
     public int getHeight() {
         return height;
-    }
-
-    public int getProportion() {
-        return proportion;
     }
 }

@@ -9,12 +9,14 @@ import java.util.Random;
 public class WorldMapUtils {
     private final int height;
     private final int width;
+    private final int proportion;
     private final WorldMap worldMap;
     private final Random random;
 
     public WorldMapUtils(WorldMap worldMap) {
         height = worldMap.getHeight();
         width = worldMap.getWidth();
+        this.proportion = width * height / 100;
         this.worldMap = worldMap;
         this.random = new Random();
     }
@@ -37,32 +39,36 @@ public class WorldMapUtils {
     }
 
     public Position findClosestTargetByClass(Position position, Class<? extends Entity> targetType) {
-        if (position == null || targetType == null) {
-            return null;
-        }
-
-        Map<Position, Entity> targets = worldMap.getEntitiesByClass(targetType);
-        if (targets.isEmpty()) {
-            return null;
-        }
         Position result = null;
+        if (targetType == null) {
+            return result;
+        }
 
-        for (Map.Entry<Position, Entity> possibleTarget : targets.entrySet()) {
-            Position possibleTargetPosition = possibleTarget.getKey();
-            result = closestPosition(position, result, possibleTargetPosition);
+        if (worldMap.isValidPosition(position)) {
+            Map<Position, Entity> targets = worldMap.getEntitiesByClass(targetType);
+            if (targets.isEmpty()) {
+                return result;
+            }
+
+            for (Map.Entry<Position, Entity> possibleTarget : targets.entrySet()) {
+                Position possibleTargetPosition = possibleTarget.getKey();
+                result = closestPosition(position, result, possibleTargetPosition);
+            }
         }
         return result;
     }
 
     private Position closestPosition(Position positionFrom, Position oldPositionTo, Position newPositionTo) {
-        if (oldPositionTo == null || newPositionTo == null) {
+        if (worldMap.isValidPosition(positionFrom)) {
+            if (worldMap.isValidPosition(oldPositionTo) && worldMap.isValidPosition(newPositionTo)) {
+                if (positionFrom.distanceTo(newPositionTo) < positionFrom.distanceTo(oldPositionTo)) {
+                    return newPositionTo;
+                }
+                return oldPositionTo;
+            }
             return newPositionTo;
         }
-        if (positionFrom.distanceTo(newPositionTo) < positionFrom.distanceTo(oldPositionTo)) {
-            return newPositionTo;
-        }
-
-        return oldPositionTo;
+        return null;
     }
 
     public int countEntities(Class<? extends Entity> entityClass) {
@@ -72,5 +78,9 @@ public class WorldMapUtils {
         }
         Map<Position, Entity> entities = worldMap.getEntitiesByClass(entityClass);
         return entities.size();
+    }
+
+    public int getProportion() {
+        return proportion;
     }
 }
