@@ -29,7 +29,7 @@ public abstract class Creature extends Entity {
         Position targetPosition = worldMapUtils.findClosestTargetByClass(currentPosition, type.getTargetClass());
         if (worldMap.isValidPosition(targetPosition)) {
             if (targetPosition.distanceTo(currentPosition) == ONE_STEP) {
-                eatTarget(worldMap, targetPosition);
+                eatTargetByPosition(worldMap, targetPosition);
                 return;
             }
 
@@ -70,7 +70,7 @@ public abstract class Creature extends Entity {
         return this.hunger > HUNGER_TURNS_LIMIT;
     }
 
-    protected abstract void eatTarget(WorldMap worldMap, Position targetPosition);
+    protected abstract void eatTargetByPosition(WorldMap worldMap, Position targetPosition);
 
     public void takeDamage(int damage) {
         healthPoints -= damage;

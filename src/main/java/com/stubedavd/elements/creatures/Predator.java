@@ -16,7 +16,7 @@ public class Predator extends Creature {
     }
 
     @Override
-    protected void eatTarget(WorldMap worldMap, Position targetPosition) {
+    protected void eatTargetByPosition(WorldMap worldMap, Position targetPosition) {
         Entity entity = worldMap.getEntityAt(targetPosition);
         Herbivore herbivore = (Herbivore) entity;
         herbivore.takeDamage(damage);

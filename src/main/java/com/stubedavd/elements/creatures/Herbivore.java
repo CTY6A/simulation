@@ -14,7 +14,7 @@ public class Herbivore extends Creature {
     }
 
     @Override
-    protected void eatTarget(WorldMap worldMap, Position targetPosition) {
+    protected void eatTargetByPosition(WorldMap worldMap, Position targetPosition) {
         worldMap.removeEntity(targetPosition);
         int percentageHeal = type.getHealthPoints() * HP_HEAL_PERCENT / PERCENT_100;
         this.heal(percentageHeal);
