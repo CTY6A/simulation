@@ -27,8 +27,8 @@ public class Simulation {
     private final ArrayList<Action> turnActions;
 
     private int turnCount;
-    private boolean paused = false;
 
+    private volatile boolean paused = false;
 
     public Simulation(int width, int height) {
         this.worldMap = new WorldMap(width, height);

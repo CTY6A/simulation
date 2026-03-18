@@ -9,14 +9,12 @@ public class WorldMap {
     private final int height;
     private final int proportion;
     private final Map<Position, Entity> entities;
-    private final Random random;
 
     public WorldMap(int width, int height) {
         this.width = width;
         this.height = height;
         this.proportion = width * height / 100;
         this.entities = new HashMap<>();
-        this.random = new Random();
     }
 
     public void placeEntity(Position position, Entity entity) {
@@ -73,69 +71,6 @@ public class WorldMap {
             return false;
         }
         return entities.containsValue(entity);
-    }
-
-    public Position getRandomEmptyPosition() {
-        ArrayList<Position> emptyPositions = new ArrayList<>();
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                Position position = new Position(x, y);
-                if (isEmptyPosition(position)) {
-                    emptyPositions.add(position);
-                }
-            }
-        }
-        if (emptyPositions.isEmpty()) {
-            return null;
-        }
-        int randomIdx = random.nextInt(emptyPositions.size());
-        return emptyPositions.get(randomIdx);
-    }
-
-    public Position findClosestTargetByClass(Position position, Class<? extends Entity> targetType) {
-        if (position == null || targetType == null) {
-            return null;
-        }
-
-        Map<Position, Entity> targets = getEntitiesByClass(targetType);
-        if (targets.isEmpty()) {
-            return null;
-        }
-        Position result = null;
-
-        for (Map.Entry<Position, Entity> possibleTarget : targets.entrySet()) {
-            Position possibleTargetPosition = possibleTarget.getKey();
-            result = closestPosition(position, result, possibleTargetPosition);
-        }
-        return result;
-    }
-
-    private Position closestPosition(Position positionFrom, Position oldPositionTo, Position newPositionTo) {
-        if (oldPositionTo == null || newPositionTo == null) {
-            return newPositionTo;
-        }
-        if (positionFrom.distanceTo(newPositionTo) < positionFrom.distanceTo(oldPositionTo)) {
-            return newPositionTo;
-        }
-
-        return oldPositionTo;
-    }
-
-    public int countEntities(Class<? extends Entity> entityClass) {
-        int count = 0;
-        if (entityClass == null) {
-            return count;
-        }
-        for (Entity entity : entities.values()) {
-            if (checkEntityClass(entity, entityClass)) {
-                count++;
-            }
-        }
-        return count;
-    }
-
-    private boolean checkEntityClass(Entity entity, Class<? extends Entity> entityClass) {
-        return entity.getClass().equals(entityClass);
     }
 
     public Map<Position, Entity> getEntitiesByClass(Class<? extends Entity> entityClass) {

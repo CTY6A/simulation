@@ -1,5 +1,6 @@
 package com.stubedavd.actions;
 
+import com.stubedavd.WorldMapUtils;
 import com.stubedavd.Position;
 import com.stubedavd.WorldMap;
 import com.stubedavd.elements.Entity;
@@ -27,7 +28,8 @@ public class EntityFactory extends Action {
     @Override
     public void perform(WorldMap worldMap) {
         int maxEntities = spawnPercent * worldMap.getProportion();
-        int numberOfEntities = worldMap.countEntities(entitySupplier.get().getClass());
+        WorldMapUtils worldMapUtils = new WorldMapUtils(worldMap);
+        int numberOfEntities = worldMapUtils.countEntities(entitySupplier.get().getClass());
         if (extinctionLimit > MIN_EXTINCTION_LIMIT) {
             // subtract extinction limit percentage from max entities
             int entitiesLimit = maxEntities - maxEntities * extinctionLimit / PERCENT_100;
@@ -36,7 +38,7 @@ public class EntityFactory extends Action {
             }
         }
         for (int i = numberOfEntities; i < maxEntities; i++) {
-            Position randomPos = worldMap.getRandomEmptyPosition();
+            Position randomPos = worldMapUtils.getRandomEmptyPosition();
             if (randomPos == null) {
                 return;
             }

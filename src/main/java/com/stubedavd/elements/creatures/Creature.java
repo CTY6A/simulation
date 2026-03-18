@@ -1,5 +1,6 @@
 package com.stubedavd.elements.creatures;
 
+import com.stubedavd.WorldMapUtils;
 import com.stubedavd.Position;
 import com.stubedavd.WorldMap;
 import com.stubedavd.elements.Entity;
@@ -24,7 +25,8 @@ public abstract class Creature extends Entity {
         starvation();
 
         Position currentPosition = worldMap.getPositionByEntity(this);
-        Position targetPosition = worldMap.findClosestTargetByClass(currentPosition, type.getTargetClass());
+        WorldMapUtils worldMapUtils = new WorldMapUtils(worldMap);
+        Position targetPosition = worldMapUtils.findClosestTargetByClass(currentPosition, type.getTargetClass());
         if (targetPosition == null) {
             return;
         }
