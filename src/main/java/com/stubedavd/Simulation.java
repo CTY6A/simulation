@@ -9,10 +9,10 @@ import java.util.ArrayList;
 
 public class Simulation {
     private final static int EXTINCTION_LIMIT = 50;
-    private final static int ROCK_SPAWN_RATE = 15;
-    private final static int TREE_SPAWN_RATE = 15;
-    private final static int GRASS_SPAWN_RATE = 15;
-    private final static int HERBIVORE_SPAWN_RATE = 15;
+    private final static int ROCK_SPAWN_RATE = 10;
+    private final static int TREE_SPAWN_RATE = 10;
+    private final static int GRASS_SPAWN_RATE = 10;
+    private final static int HERBIVORE_SPAWN_RATE = 10;
     private final static int PREDATOR_SPAWN_RATE = 5;
     private final static int DELAY = 300;
     private static final int MAX_TURNS = 100000;

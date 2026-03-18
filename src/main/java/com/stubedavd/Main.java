@@ -4,8 +4,8 @@ import java.io.IOException;
 
 public class Main {
     private final static int DELAY = 300;
-    private final static int MAP_WIDTH = 40;
-    private final static int MAP_HEIGHT = 20;
+    private final static int MAP_WIDTH = 20;
+    private final static int MAP_HEIGHT = 10;
     private final static char PAUSE_KEY_CODE_1 = 10;
     private final static char PAUSE_KEY_CODE_2 = 13;
 
