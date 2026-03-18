@@ -9,6 +9,9 @@ import com.stubedavd.utils.Renderer;
 import java.util.ArrayList;
 
 public class Simulation {
+    private final static int WORLD_MAP_WIDTH = 20;
+    private final static int WORLD_MAP_HEIGHT = 10;
+
     private final static int EXTINCTION_LIMIT = 50;
 
     private final static int ROCK_SPAWN_RATE = 10;
@@ -29,8 +32,8 @@ public class Simulation {
     private final boolean isRunning;
     private volatile boolean isPaused;
 
-    public Simulation(int width, int height) {
-        this.worldMap = new WorldMap(width, height);
+    public Simulation() {
+        this.worldMap = new WorldMap(WORLD_MAP_WIDTH, WORLD_MAP_HEIGHT);
         this.renderer = new Renderer();
         this.initActions = new ArrayList<>(){{
             add(new EntityFactory(Rock::new, ROCK_SPAWN_RATE));

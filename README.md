@@ -44,25 +44,19 @@ mvn exec:java -Dexec.mainClass="com.stubedavd.Main"
 
 ## Simulation Parameters
 
-Parameters can be modified in `src/main/java/com/stubedavd/Main.java`:
-
-| Parameter | Value  | Description |
-|-----------|--------|-------------|
-| `MAP_WIDTH` | 20     | Map width |
-| `MAP_HEIGHT` | 10     | Map height |
-| `DELAY` | 300    | Delay between turns (ms) |
-| `MAX_TURNS` | 100000 | Maximum number of turns |
-
-Spawn parameters in `Simulation.java`:
+Parameters in `src/main/java/com/stubedavd/Simulation.java`:
 
 | Parameter | Value | Description |
 |-----------|-------|-------------|
+| `WORLD_MAP_WIDTH` | 20    | Map width |
+| `WORLD_MAP_HEIGHT` | 10    | Map height |
+| `THREAD_SLEEP` | 300   | Delay between turns (ms) |
 | `ROCK_SPAWN_RATE` | 10%   | Rock spawn probability |
 | `TREE_SPAWN_RATE` | 10%   | Tree spawn probability |
 | `GRASS_SPAWN_RATE` | 10%   | Grass spawn probability |
 | `HERBIVORE_SPAWN_RATE` | 10%   | Herbivore spawn probability |
 | `PREDATOR_SPAWN_RATE` | 5%    | Predator spawn probability |
-| `EXTINCTION_LIMIT` | 50    | Limit to prevent extinction |
+| `EXTINCTION_LIMIT` | 50%   | Limit to prevent extinction |
 
 ## Project Structure
 
