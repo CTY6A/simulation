@@ -19,7 +19,7 @@ public class Renderer {
         int grassCount = worldMap.getEntitiesByClass(Grass.class).size();
         int herbivoreCount = worldMap.getEntitiesByClass(Herbivore.class).size();
         int predatorCount = worldMap.getEntitiesByClass(Predator.class).size();
-        System.out.printf("  Grass: %d  Herbivores: %d  Predators %d", grassCount, herbivoreCount, predatorCount);
+        System.out.printf("  Grass: %d  Herbivores: %d  Predators: %d", grassCount, herbivoreCount, predatorCount);
 
         System.out.println("  Enter - pause/resume\n");
     }

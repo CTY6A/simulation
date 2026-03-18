@@ -126,7 +126,7 @@ The project implements the A* pathfinding algorithm from scratch to allow creatu
 ⬛️🥀🟫🟫🟫🟫🟫🐄🗻🟫🟫🦁🐑🟫🟫🐹🟫🟫🟫🟫🐅⬛️
 ⬛️🟫🌿🟫🟫🟫🟫🟫🟫🦒🟫🟫🟫🟫🟫🟫🟫🟫🌲🟫🌿⬛️
 ⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️
-  Grass: 20  Herbivores: 20  Predators 10  Enter - pause/resume
+  Grass: 20  Herbivores: 20  Predators: 10  Enter - pause/resume
 ```
 
 ## Project Requirements
