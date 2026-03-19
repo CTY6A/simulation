@@ -1,4 +1,4 @@
-package com.stubedavd.elements;
+package com.stubedavd.models;
 
 public abstract class Entity {
 }

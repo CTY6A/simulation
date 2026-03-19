@@ -1,9 +1,9 @@
-package com.stubedavd.elements.creatures;
+package com.stubedavd.creatures;
 
-import com.stubedavd.Position;
-import com.stubedavd.WorldMap;
-import com.stubedavd.elements.Entity;
-import com.stubedavd.elements.types.creatureTypes.PredatorType;
+import com.stubedavd.core.Position;
+import com.stubedavd.core.WorldMap;
+import com.stubedavd.models.Entity;
+import com.stubedavd.mapobjects.species.PredatorType;
 
 public class Predator extends Creature {
     private final int damage;

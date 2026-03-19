@@ -1,11 +1,11 @@
-package com.stubedavd.utils;
+package com.stubedavd.view;
 
-import com.stubedavd.Position;
-import com.stubedavd.WorldMap;
-import com.stubedavd.elements.Entity;
-import com.stubedavd.elements.Grass;
-import com.stubedavd.elements.creatures.Herbivore;
-import com.stubedavd.elements.creatures.Predator;
+import com.stubedavd.core.Position;
+import com.stubedavd.core.WorldMap;
+import com.stubedavd.models.Entity;
+import com.stubedavd.models.Grass;
+import com.stubedavd.creatures.Herbivore;
+import com.stubedavd.creatures.Predator;
 
 public class Renderer {
     public void render(final WorldMap worldMap, final int turnCount) {

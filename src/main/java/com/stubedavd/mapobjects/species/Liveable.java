@@ -1,6 +1,6 @@
-package com.stubedavd.elements.types.creatureTypes;
+package com.stubedavd.mapobjects.species;
 
-import com.stubedavd.elements.Entity;
+import com.stubedavd.models.Entity;
 
 public interface Liveable {
     int getHealthPoints();

@@ -1,6 +1,6 @@
-package com.stubedavd.elements;
+package com.stubedavd.models;
 
-import com.stubedavd.elements.types.GrassType;
+import com.stubedavd.mapobjects.GrassType;
 
 public class Grass extends Entity {
     private final GrassType type;

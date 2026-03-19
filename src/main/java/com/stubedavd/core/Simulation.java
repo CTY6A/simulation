@@ -1,10 +1,12 @@
-package com.stubedavd;
+package com.stubedavd.core;
 
 import com.stubedavd.actions.*;
-import com.stubedavd.elements.*;
-import com.stubedavd.elements.creatures.Herbivore;
-import com.stubedavd.elements.creatures.Predator;
-import com.stubedavd.utils.Renderer;
+import com.stubedavd.creatures.Herbivore;
+import com.stubedavd.creatures.Predator;
+import com.stubedavd.models.Grass;
+import com.stubedavd.models.Rock;
+import com.stubedavd.models.Tree;
+import com.stubedavd.view.Renderer;
 
 import java.util.ArrayList;
 

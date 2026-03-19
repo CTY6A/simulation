@@ -1,4 +1,4 @@
-package com.stubedavd.elements.types;
+package com.stubedavd.mapobjects;
 
 public enum RockType {
     MOUNTAIN("\u26F0\uFE0F"),

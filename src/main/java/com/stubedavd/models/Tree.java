@@ -1,6 +1,6 @@
-package com.stubedavd.elements;
+package com.stubedavd.models;
 
-import com.stubedavd.elements.types.TreeType;
+import com.stubedavd.mapobjects.TreeType;
 
 public class Tree extends Entity {
     private final TreeType type;

@@ -1,7 +1,7 @@
-package com.stubedavd.elements.types.creatureTypes;
+package com.stubedavd.mapobjects.species;
 
-import com.stubedavd.elements.Entity;
-import com.stubedavd.elements.Grass;
+import com.stubedavd.models.Entity;
+import com.stubedavd.models.Grass;
 
 public enum HerbivoreType implements Liveable {
     DEER("🦌", 30, 4),

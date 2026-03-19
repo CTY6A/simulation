@@ -1,7 +1,7 @@
-package com.stubedavd.elements.types.creatureTypes;
+package com.stubedavd.mapobjects.species;
 
-import com.stubedavd.elements.Entity;
-import com.stubedavd.elements.creatures.Herbivore;
+import com.stubedavd.models.Entity;
+import com.stubedavd.creatures.Herbivore;
 
 public enum PredatorType implements Liveable {
     WOLF("🐺", 30, 4, 15),

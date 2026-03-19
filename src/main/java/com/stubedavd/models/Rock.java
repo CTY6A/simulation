@@ -1,6 +1,6 @@
-package com.stubedavd.elements;
+package com.stubedavd.models;
 
-import com.stubedavd.elements.types.RockType;
+import com.stubedavd.mapobjects.RockType;
 
 public class Rock extends Entity {
     private final RockType type;

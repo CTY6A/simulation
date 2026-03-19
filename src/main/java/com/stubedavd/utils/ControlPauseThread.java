@@ -1,6 +1,6 @@
 package com.stubedavd.utils;
 
-import com.stubedavd.Simulation;
+import com.stubedavd.core.Simulation;
 
 import java.io.IOException;
 

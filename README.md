@@ -2,6 +2,10 @@
 
 A console-based step-by-step simulation of a 2D world inhabited by herbivores and predators. This project implements a grid-based ecosystem where creatures interact with each other and the environment, demonstrating core object-oriented programming principles and pathfinding algorithms.
 
+## Project Requirements
+
+This project was created as part of the Java Backend Learning Course. The original requirements and project description can be found here: [Simulation - Java Backend Course](https://zhukovsd.github.io/java-backend-learning-course/projects/simulation/)
+
 ## Features
 
 - **2D Grid World**: A customizable NxM world where each cell can contain a single entity or be empty.
@@ -122,7 +126,3 @@ The project implements the A* pathfinding algorithm from scratch to allow creatu
 ⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️
   Grass: 20  Herbivores: 20  Predators: 10  Enter - pause/resume
 ```
-
-## Project Requirements
-
-This project was created as part of the Java Backend Learning Course. The original requirements and project description can be found here: [Simulation - Java Backend Course](https://zhukovsd.github.io/java-backend-learning-course/projects/simulation/)

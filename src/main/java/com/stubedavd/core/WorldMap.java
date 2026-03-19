@@ -1,6 +1,6 @@
-package com.stubedavd;
+package com.stubedavd.core;
 
-import com.stubedavd.elements.*;
+import com.stubedavd.models.Entity;
 
 import java.util.*;
 

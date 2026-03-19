@@ -1,4 +1,4 @@
-package com.stubedavd.elements.types;
+package com.stubedavd.mapobjects;
 
 public enum TreeType {
     EVERGREEN("🌲"),

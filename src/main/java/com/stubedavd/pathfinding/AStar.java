@@ -1,7 +1,7 @@
 package com.stubedavd.pathfinding;
 
-import com.stubedavd.Position;
-import com.stubedavd.WorldMap;
+import com.stubedavd.core.Position;
+import com.stubedavd.core.WorldMap;
 
 import java.util.*;
 
@@ -88,19 +88,20 @@ public class AStar {
                 Node queueNode = queue.stream().filter(n -> n.equals(neighbor)).findFirst().get();
                 queue.remove(queueNode);
                 if (newG < queueNode.getG()) {
-                    queueNode.setG(newG);
-                    queueNode.setH(neighbor.getPosition().distanceTo(endNode.getPosition()));
-                    queueNode.setF(newG + queueNode.getH());
-                    queueNode.setParent(currentNode);
+                    setNode(currentNode, queueNode, newG);
                     queue.add(queueNode);
                 }
             } else {
-                neighbor.setG(newG);
-                neighbor.setH(neighbor.getPosition().distanceTo(endNode.getPosition()));
-                neighbor.setF(newG + neighbor.getH());
-                neighbor.setParent(currentNode);
+                setNode(currentNode, neighbor, newG);
                 queue.add(neighbor);
             }
         }
+    }
+
+    private void setNode(Node currentNode, Node targetNode, int newG) {
+        targetNode.setG(newG);
+        targetNode.setH(targetNode.getPosition().distanceTo(endNode.getPosition()));
+        targetNode.setF(newG + targetNode.getH());
+        targetNode.setParent(currentNode);
     }
 }

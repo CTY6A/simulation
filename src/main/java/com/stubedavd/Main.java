@@ -1,5 +1,6 @@
 package com.stubedavd;
 
+import com.stubedavd.core.Simulation;
 import com.stubedavd.utils.ControlPauseThread;
 
 public class Main {

@@ -1,4 +1,4 @@
-package com.stubedavd;
+package com.stubedavd.core;
 
 public class Position {
     public static final int ONE_STEP = 1;
