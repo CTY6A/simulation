@@ -48,50 +48,62 @@ mvn exec:java -Dexec.mainClass="com.stubedavd.Main"
 
 ## Simulation Parameters
 
-Parameters in `src/main/java/com/stubedavd/Simulation.java`:
+Parameters in `src/main/java/com/stubedavd/core/Simulation.java`:
 
 | Parameter | Value | Description |
 |-----------|-------|-------------|
-| `WORLD_MAP_WIDTH` | 20    | Map width |
-| `WORLD_MAP_HEIGHT` | 10    | Map height |
-| `THREAD_SLEEP` | 300   | Delay between turns (ms) |
-| `ROCK_SPAWN_RATE` | 10%   | Rock spawn probability |
-| `TREE_SPAWN_RATE` | 10%   | Tree spawn probability |
-| `GRASS_SPAWN_RATE` | 10%   | Grass spawn probability |
-| `HERBIVORE_SPAWN_RATE` | 10%   | Herbivore spawn probability |
-| `PREDATOR_SPAWN_RATE` | 5%    | Predator spawn probability |
-| `EXTINCTION_LIMIT` | 50%   | Limit to prevent extinction |
+| `WORLD_MAP_WIDTH` | 20 | Map width |
+| `WORLD_MAP_HEIGHT` | 10 | Map height |
+| `THREAD_SLEEP` | 300 | Delay between turns (ms) |
+| `ROCK_SPAWN_RATE` | 10% | Rock spawn probability |
+| `TREE_SPAWN_RATE` | 10% | Tree spawn probability |
+| `GRASS_SPAWN_RATE` | 10% | Grass spawn probability |
+| `HERBIVORE_SPAWN_RATE` | 10% | Herbivore spawn probability |
+| `PREDATOR_SPAWN_RATE` | 5% | Predator spawn probability |
+| `EXTINCTION_LIMIT` | 50% | Limit to prevent extinction |
 
 ## Project Structure
 
 ```
 simulation/
 ├── src/main/java/com/stubedavd/
-│   ├── Main.java              # Application entry point
-│   ├── Simulation.java        # Main simulation engine
-│   ├── WorldMap.java          # Map and entity management
-│   ├── Renderer.java          # Console map rendering
-│   ├── Position.java          # Coordinate representation
-│   ├── actions/               # World actions
-│   │   ├── Action.java        # Base action class
-│   │   ├── CreaturesMove.java # Creature movement
-│   │   ├── EntityFactory.java # Entity factory
+│   ├── Main.java                 # Application entry point
+│   ├── actions/                  # World actions
+│   │   ├── Action.java           # Base action class
+│   │   ├── CreaturesMove.java    # Creature movement
+│   │   ├── EntityFactory.java     # Entity factory
 │   │   └── HealthPointsChecker.java # Health check
-│   ├── elements/              # World entities
-│   │   ├── Entity.java        # Base entity class
-│   │   ├── Grass.java         # Grass (resource)
-│   │   ├── Rock.java          # Rock (obstacle)
-│   │   ├── Tree.java          # Tree (obstacle)
-│   │   ├── creatures/
-│   │   │   ├── Creature.java  # Base creature class
-│   │   │   ├── Herbivore.java # Herbivore
-│   │   │   └── Predator.java  # Predator
-│   │   └── types/             # Entity types
-│   └── pathfinding/           # Pathfinding algorithms
-│       ├── AStar.java         # A* algorithm
-│       └── Node.java          # Node for A*
-├── pom.xml                    # Maven configuration
-└── README.md                  # This file
+│   ├── core/                     # Core classes
+│   │   ├── Position.java         # Coordinate representation
+│   │   ├── Simulation.java       # Main simulation engine
+│   │   └── WorldMap.java         # Map and entity management
+│   ├── creatures/                 # Creatures
+│   │   ├── Creature.java         # Base creature class
+│   │   ├── Herbivore.java        # Herbivore
+│   │   └── Predator.java         # Predator
+│   ├── mapobjects/               # Map objects
+│   │   ├── GrassType.java        # Grass type
+│   │   ├── RockType.java         # Rock type
+│   │   ├── TreeType.java         # Tree type
+│   │   └── species/              # Creature species
+│   │       ├── HerbivoreType.java # Herbivore stats
+│   │       ├── Liveable.java     # Liveable interface
+│   │       └── PredatorType.java # Predator stats
+│   ├── models/                   # Entity models
+│   │   ├── Entity.java           # Base entity class
+│   │   ├── Grass.java            # Grass (resource)
+│   │   ├── Rock.java             # Rock (obstacle)
+│   │   └── Tree.java             # Tree (obstacle)
+│   ├── pathfinding/              # Pathfinding algorithms
+│   │   ├── AStar.java            # A* algorithm
+│   │   └── Node.java             # Node for A*
+│   ├── utils/                    # Utilities
+│   │   ├── ControlPauseThread.java # Pause control
+│   │   └── WorldMapUtils.java    # Map utilities
+│   └── view/                     # Rendering
+│       └── Renderer.java         # Console map rendering
+├── pom.xml                       # Maven configuration
+└── README.md                     # This file
 ```
 
 ## Class Overview
